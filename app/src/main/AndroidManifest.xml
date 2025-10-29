@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Decora">
         <activity
-            android:name=".MainActivity"
+            android:name=".Page15Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Page1Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
