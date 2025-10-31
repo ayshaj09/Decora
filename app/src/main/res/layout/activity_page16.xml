@@ -25,17 +25,13 @@
             android:layout_marginHorizontal="25dp"
             android:backgroundTint="@color/white"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
             android:layout_alignParentEnd="true"
-            android:text="Done"
-            android:textColor="@color/white"
-            android:textStyle="bold"
             android:layout_marginEnd="25dp"
-            android:textSize="18dp"
-            android:layout_marginTop="5dp"
-            android:id="@+id/done"/>
+            android:background="@drawable/options"/>
 
     </RelativeLayout>
 
@@ -46,151 +42,232 @@
         android:layout_below="@id/top"
         android:src="@drawable/pfp2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="20dp"
         />
 
     <TextView
-        android:layout_width="60dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/pfp"
-        android:backgroundTint="#737576"
-        android:text="Edit"
+        android:layout_centerHorizontal="true"
+        android:text="David Cohen"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:id="@+id/username"
+        android:textSize="25dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:id="@+id/name"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/logo1"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="davd"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:id="@+id/fllow"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:text="10 followers"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="15dp"
+            android:text="32 following"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/fllow"
+        android:backgroundTint="#737576"
+        android:text="Edit Profile"
+        android:gravity="center"
         android:clickable="true"
         android:id="@+id/edit"
         android:textColor="@color/white"
         android:background="@drawable/login_button"
         android:layout_marginTop="20dp"
-        android:layout_height="30dp"/>
+        android:layout_height="38dp"/>
 
     <LinearLayout
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/edit"
-        android:layout_marginTop="30dp"
-        android:id="@+id/name"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/login_button"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        android:gravity="center"
+        android:id="@+id/saved"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/white"/>
+            android:text="Saved"
+            android:layout_marginBottom="2dp"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="David Cohin"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/white"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/saved_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white"
+                android:layout_marginTop="3dp" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="380dp"
-        android:layout_below="@id/name"
-        android:layout_marginTop="15dp"
-        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/saved"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/login_button"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/white"/>
+            android:text="No Pins yet, but there's"
+            android:gravity="center_horizontal"
+            android:textSize="21dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="60dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dvid"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/white"/>
+            android:text="load of potential"
+            android:gravity="center_horizontal"
+            android:textSize="21dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
     </LinearLayout>
+
+
+
 
     <LinearLayout
-        android:layout_width="380dp"
-        android:layout_below="@id/username"
-        android:layout_marginTop="15dp"
-        android:id="@+id/email"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/login_button"
-        android:orientation="vertical"
-        android:layout_height="55dp">
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/footer"
+        android:layout_marginHorizontal="40dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/tab1"
+            android:tint="@color/white"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="david@gmail.com"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/search"
+            android:tint="@color/white"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/post"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/plus"
+            android:tint="@color/white"
+            android:layout_marginBottom="3dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/comment"
+            android:tint="@color/white"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:src="@drawable/pfp2"
+            android:layout_weight="1"
+            android:id="@+id/prof"
+            android:layout_marginTop="-3dp"
+            android:layout_gravity="center"
+            android:clickable="true"/>
+
+
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="380dp"
-        android:layout_below="@id/email"
-        android:layout_marginTop="15dp"
-        android:id="@+id/phno"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/login_button"
-        android:orientation="vertical"
-        android:layout_height="55dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone Number"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/white"/>
-    </LinearLayout>
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/phno"
-    android:text="About"
-    android:id="@+id/about"
-    android:textColor="@color/white"
-    android:textStyle="bold"
-android:textSize="18dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="20dp"/>
-
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/about"
-    android:text="Tell your story"
-    android:textColor="#737576"
-    android:textSize="18dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginStart="20dp"/>
-
-
-
 
 
 </RelativeLayout>
