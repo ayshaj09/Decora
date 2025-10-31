@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2B241C"
-    tools:context=".Page15Activity">
+    tools:context=".Page16Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -215,7 +215,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/tab1"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />
@@ -226,7 +226,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/search"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />
@@ -237,7 +237,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:src="@drawable/plus"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:layout_marginBottom="3dp"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
@@ -250,7 +250,7 @@
             android:layout_weight="1"
             android:layout_marginBottom="3dp"
             android:src="@drawable/comment"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />

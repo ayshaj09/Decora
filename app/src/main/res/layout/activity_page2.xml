@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page2Activity"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/pictures1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/image9">
+
+        </ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+
+
+            android:src="@drawable/image10">
+
+        </ImageView>
+
+        <ImageView
+            android:layout_width="209dp"
+            android:layout_height="157dp"
+
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="300dp"
+
+            android:src="@drawable/image11">
+
+        </ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="270dp"
+            android:src="@drawable/image12">
+
+        </ImageView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/pictures2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pictures1">
+        <ImageView
+            android:id="@+id/logo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo2"
+            android:layout_centerHorizontal="true">
+
+        </ImageView>
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Hub for Interior Design Ideas"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/brown"
+            android:layout_below="@+id/logo2"
+            android:layout_centerHorizontal="true">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_below="@id/pictures2"
+        android:id="@+id/picture4"
+        android:background="@drawable/login_button"
+        android:layout_height="55dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signup"
+
+            android:layout_marginLeft="30dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pictures5"
+        android:layout_width="match_parent"
+        android:layout_below="@id/picture4"
+        android:background="@drawable/rectangle11"
+
+        android:layout_height="55dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Login"
+            android:textColor="@color/brown">
+
+        </TextView>
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:layout_below="@id/pictures5"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/brown"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp">
+
+    </TextView>
+
+
+</RelativeLayout>
