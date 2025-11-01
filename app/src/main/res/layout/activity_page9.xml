@@ -20,6 +20,7 @@
             android:layout_centerInParent="true"
             android:text="Save to"
             android:textStyle="bold"
+            android:textSize="18dp"
             android:textColor="@color/white" />
 
         <ImageView
@@ -33,37 +34,34 @@
             android:clickable="true" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/srch"
-        android:layout_width="390dp"
+        android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_below="@id/top"
+        android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/textbox2">
 
         <ImageView
             android:id="@+id/searchIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="12dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@drawable/search"
             app:tint="@color/white" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/searchIcon"
-            android:layout_marginEnd="10dp"
             android:background="@null"
             android:hint="Search"
             android:textColorHint="@color/grey"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:paddingStart="1dp"
             android:singleLine="true" />
-    </RelativeLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/firstsearch"
