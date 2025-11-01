@@ -7,6 +7,11 @@
     android:background="@color/darkbrown"
     tools:context=".Page8Activity">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
     <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -14,12 +19,19 @@
         android:background="@color/darkbrown">
 
         <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back_arrow"
+            android:backgroundTint="@color/white"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="18dp"/>
+        <ImageView
             android:id="@+id/firstimage"
             android:layout_width="450dp"
             android:layout_height="400dp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/furniture6" />
+            android:src="@drawable/p1" />
 
         <LinearLayout
             android:id="@+id/topNavigation"
@@ -35,6 +47,7 @@
                 android:id="@+id/heartIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="5dp"
                 android:src="@drawable/img_2"
                 app:tint="@color/white" />
 
@@ -52,6 +65,7 @@
                 android:id="@+id/commentIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="5dp"
                 android:src="@drawable/img_5"
                 app:tint="@color/white"
                 android:layout_marginEnd="14dp" />
@@ -62,12 +76,14 @@
                 android:layout_height="24dp"
                 android:src="@drawable/img_3"
                 app:tint="@color/white"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="14dp" />
 
             <ImageView
                 android:id="@+id/saveIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="5dp"
                 android:src="@drawable/img_6"
                 app:tint="@color/white" />
 
@@ -76,14 +92,17 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <Button
+            <TextView
                 android:id="@+id/saveButton"
                 android:layout_width="70dp"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:text="Save"
+                android:background="@drawable/textbox2"
+                android:gravity="center"
+                android:textStyle="bold"
                 android:textColor="@color/darkbrown"
                 android:backgroundTint="@color/white"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -140,62 +159,58 @@
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_marginTop="10dp" />
+
+
+
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/textSection"
+        <RelativeLayout
+            android:id="@+id/furnitureLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:layout_below="@id/textSection"
+            android:layout_marginHorizontal="10dp"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+            android:layout_marginTop="20dp">
 
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="260dp"
-                    android:layout_weight="2"
-                    android:layout_margin="1dp">
+            <ImageView
+                android:id="@+id/furniture3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/p2"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:clickable="true"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/img1" />
-                </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="2">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:layout_margin="1dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/img2" />
+            <ImageView
+                android:id="@+id/furniture4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/furniture3"
+                android:src="@drawable/p3" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="1dp"
-                        android:clickable="true"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/img3" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/furniture5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/p4"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/furniture3"
+                android:layout_below="@id/furniture4"/>
+
+
+
+
+        </RelativeLayout>
+
     </RelativeLayout>
+    </ScrollView>
 </ScrollView>
