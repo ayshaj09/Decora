@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Decora">
         <activity
+            android:name=".Page12Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Page18Activity"
+            android:exported="false" />
+        <activity
             android:name=".Page7Activity"
             android:exported="false" />
         <activity
@@ -29,7 +35,6 @@
         <activity
             android:name=".Page2Activity"
             android:exported="false" />
-
         <activity
             android:name=".Page13Activity"
             android:exported="false" />

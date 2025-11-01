@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkbrown"
+    tools:context=".Page7Activity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/searching"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back_arrow"
+            android:id="@+id/back"
+            android:clickable="true"
+            android:layout_marginRight="5dp"
+            android:backgroundTint="@color/white"
+            android:layout_gravity="center_vertical"/>
+        <RelativeLayout
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:id="@+id/srch"
+            android:background="@drawable/circle">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Search your saved ideas"
+                android:text="Beds"
+                android:textColor="@color/white"
+                android:textColorHint="grey"
+                android:background="null"
+
+                android:textSize="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/scrollView"
+        android:layout_below="@id/searching"
+        android:layout_above="@+id/footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:id="@+id/furnitureLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp">
+
+
+            <ImageView
+                android:id="@+id/furniture1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/b1" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_below="@id/furniture1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Japanese Style beds"
+                android:layout_marginLeft="2dp"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture1"
+                android:layout_alignEnd="@id/furniture1"
+                android:layout_marginLeft="13dp"
+                android:layout_marginEnd="-13dp"
+                android:layout_toRightOf="@id/text1"
+                android:src="@drawable/icon3" />
+
+
+            <ImageView
+                android:id="@+id/furniture2"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/furniture1"
+                android:src="@drawable/b2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture2"
+                android:layout_marginLeft="-22dp"
+                android:layout_toRightOf="@id/furniture2"
+                android:src="@drawable/icon3" />
+
+
+            <ImageView
+                android:id="@+id/furniture3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/b3"
+                android:layout_below="@id/text1"
+                android:layout_marginTop="5dp" />
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture3"
+                android:layout_marginStart="-35dp"
+                android:layout_toEndOf="@id/furniture3"
+                android:src="@drawable/icon3" />
+
+
+            <ImageView
+                android:id="@+id/furniture4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/furniture3"
+                android:src="@drawable/b4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/furniture4"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="-27dp"
+                android:layout_toRightOf="@id/furniture3"
+                android:text="Indigo beds"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture4"
+                android:layout_alignEnd="@id/furniture4"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/icon3" />
+
+
+            <ImageView
+                android:id="@+id/furniture5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/b5"
+                android:layout_below="@id/icon3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wayfare"
+                android:textSize="12sp"
+                android:layout_below="@id/furniture5"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture5"
+                android:layout_alignEnd="@id/furniture1"
+                android:layout_marginLeft="13dp"
+                android:layout_marginEnd="-13dp"
+                android:layout_toRightOf="@id/text1"
+                android:src="@drawable/icon3" />
+
+
+            <ImageView
+                android:id="@+id/furniture6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/b6"
+                android:layout_below="@id/furniture4"
+                android:layout_toRightOf="@id/furniture3"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon3"
+                android:layout_alignEnd="@id/furniture6"
+                android:layout_below="@id/furniture6" />
+
+            <ImageView
+                android:id="@+id/furniture8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/b3"
+                android:layout_below="@id/furniture6"
+                android:layout_toRightOf="@id/furniture3"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp" />
+
+
+
+            <ImageView
+                android:id="@+id/furniture7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture5"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/b4" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture7"
+                android:layout_alignEnd="@id/furniture7"
+                android:layout_marginLeft="13dp"
+                android:layout_marginEnd="-13dp"
+                android:layout_toRightOf="@id/text1"
+                android:src="@drawable/icon3" />
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="40dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/tab1"
+            app:tint="@color/white"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/search"
+            app:tint="@color/white"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/post"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/plus"
+            app:tint="@color/white"
+            android:layout_marginBottom="3dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/comment"
+            app:tint="@color/white"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:clickable="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/prof"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="-3dp"
+            android:src="@drawable/pfp2"
+            android:clickable="true" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -71,12 +71,14 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/logo1"
+
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:textColor="#737576"
             android:text="davd"/>
 
         
@@ -350,7 +352,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/tab1"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />
@@ -361,7 +363,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:src="@drawable/search"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />
@@ -372,7 +374,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:src="@drawable/plus"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:layout_marginBottom="3dp"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
@@ -385,7 +387,7 @@
             android:layout_weight="1"
             android:layout_marginBottom="3dp"
             android:src="@drawable/comment"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />

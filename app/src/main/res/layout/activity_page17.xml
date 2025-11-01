@@ -82,12 +82,13 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/white"/>
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="David Cohin"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:background="null"
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -110,12 +111,13 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/white"/>
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dvid"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:background="null"
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -138,12 +140,13 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/white"/>
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="david@gmail.com"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:background="null"
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -165,6 +168,16 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/white"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="null"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 <TextView
@@ -175,7 +188,7 @@
     android:id="@+id/about"
     android:textColor="@color/white"
     android:textStyle="bold"
-android:textSize="18dp"
+    android:textSize="18dp"
     android:layout_marginTop="20dp"
     android:layout_marginStart="20dp"/>
 
