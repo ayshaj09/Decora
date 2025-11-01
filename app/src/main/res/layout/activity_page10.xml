@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/darkbrown"
     tools:context=".Page10Activity">
-
+<!--fix-->
     <ScrollView
+
         android:id="@+id/mainScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
