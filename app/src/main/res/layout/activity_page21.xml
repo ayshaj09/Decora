@@ -57,37 +57,52 @@
             android:orientation="vertical"
             android:paddingHorizontal="30dp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-
-                <EditText
-                    android:id="@+id/pinTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:hint="Add a title to your Pin"
-                    android:background="@drawable/textbox2"
-                    android:paddingHorizontal="15dp"
-                    android:paddingVertical="10dp"
-                    android:gravity="top"
-                    android:textColor="@color/white"
-                    android:textColorHint="#999999"
-                    android:textSize="15sp"
-                    android:maxLength="100" />
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:id="@+id/pinTitle"
+                android:background="@drawable/textbox2">
 
                 <TextView
-                    android:id="@+id/titleCounter"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/pinTitle"
-                    android:layout_marginTop="3dp"
-                    android:layout_alignParentStart="true"
-                    android:text="0/100"
-                    android:textColor="#999999"
-                    android:textSize="12sp" />
-            </RelativeLayout>
 
+                    android:gravity="top"
+                    android:hint="Title"
+                    android:maxLength="100"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#999999"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="null"
+                    android:hint="Tell everyone what your pin is about"
+                    android:layout_marginLeft="10dp"
+                    android:maxLength="100"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="15sp"/>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/titleCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pinTitle"
+                android:layout_alignParentStart="true"
+                android:text="0/100"
+                android:textColor="#999999"
+                android:textSize="12sp" />
             <EditText
                 android:id="@+id/pinDescription"
                 android:layout_width="match_parent"
