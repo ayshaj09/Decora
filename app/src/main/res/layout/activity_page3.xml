@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Find Your Account"
             android:textColor="@color/darkbrown"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="30dp"
             android:textSize="25dp"
             android:textStyle="bold">
 
@@ -66,9 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enter Your Mobile Number"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="30dp"
 
-            android:textStyle="bold"
             android:layout_marginTop="1dp">
 
         </TextView>
@@ -99,7 +98,7 @@
         android:layout_below="@id/picture4"
 android:backgroundTint="@color/brown"
         android:background="@drawable/login_button"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp">

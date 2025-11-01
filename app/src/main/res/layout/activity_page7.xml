@@ -15,15 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp">
+        android:layout_marginLeft="23dp">
 
         <TextView
             android:id="@+id/textAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All"
-            android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/white" />
 
         <ImageView
@@ -40,8 +39,8 @@
             android:layout_height="wrap_content"
             android:text="Lounge Decor"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:layout_marginBottom="2dp"
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@id/line" />
 
@@ -51,8 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Room"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@id/LoungeDecor" />
     </RelativeLayout>
@@ -87,6 +85,7 @@
                 android:layout_below="@id/furniture1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:text="Japanese Style homes"
                 android:layout_marginLeft="2dp"
                 android:textColor="@color/white" />
@@ -179,6 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="wayfare"
+                android:textSize="12sp"
                 android:layout_below="@id/furniture5"
                 android:textColor="@color/white" />
 
@@ -214,11 +214,12 @@
                 android:id="@+id/furniture8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/furniture8"
+                android:src="@drawable/furniture3"
                 android:layout_below="@id/furniture6"
                 android:layout_toRightOf="@id/furniture3"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="30dp" />
+
 
 
             <ImageView
@@ -228,6 +229,16 @@
                 android:layout_below="@id/furniture5"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/furniture7" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/furniture7"
+                android:layout_alignEnd="@id/furniture7"
+                android:layout_marginLeft="13dp"
+                android:layout_marginEnd="-13dp"
+                android:layout_toRightOf="@id/text1"
+                android:src="@drawable/icon3" />
         </RelativeLayout>
     </ScrollView>
 

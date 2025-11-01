@@ -19,8 +19,8 @@
             android:src="@drawable/back_arrow"
             android:background="@null"
             android:backgroundTint="@color/white"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp" />
     </RelativeLayout>
 
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Sign in"
             android:layout_centerInParent="true"
-            android:textColor="@color/darkbrown"
+            android:textColor="@color/brown"
             android:textSize="30sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -180,14 +180,14 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="@color/darkbrown" />
+            android:background="#62605E" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OR"
-            android:textColor="@color/darkbrown"
+            android:textColor="#62605E"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
@@ -199,7 +199,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="@color/darkbrown" />
+            android:background="#62605E" />
     </LinearLayout>
 
     <LinearLayout

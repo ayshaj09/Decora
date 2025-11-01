@@ -19,6 +19,7 @@
             android:layout_width="368dp"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="2dp"
             android:gravity="start|center_vertical"
             android:orientation="horizontal">
 
@@ -26,7 +27,6 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/back_arrow"
                 android:backgroundTint="@color/white"
@@ -34,9 +34,9 @@
 
             <TextView
                 android:layout_toRightOf="@+id/back"
-                android:layout_centerVertical="true"
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
 
                 android:text="Back to Login"
@@ -59,13 +59,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="15dp"
             android:paddingVertical="8dp"
             android:background="@drawable/button"
             android:backgroundTint="#737576"
             android:text="Set Profile"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:gravity="center" />
 
 
@@ -136,9 +136,9 @@
 
         <TextView
             android:id="@+id/createAccount"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="45dp"
             android:gravity="center"
             android:text="Create Account"
             android:textColor="@android:color/white"
