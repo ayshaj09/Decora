@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2B241C"
-    tools:context=".Page21">
+    tools:context=".Page21Activity">
 
     <RelativeLayout
         android:id="@+id/main"

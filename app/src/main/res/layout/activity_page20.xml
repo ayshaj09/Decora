@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="#2B241C"
     android:layout_height="match_parent"
-    tools:context=".Page20">
+    tools:context=".Page20Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"

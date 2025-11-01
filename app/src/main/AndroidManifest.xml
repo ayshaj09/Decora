@@ -36,6 +36,15 @@
             android:name=".Page2Activity"
             android:exported="false" />
         <activity
+            android:name=".Page19Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Page20Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Page21Activity"
+            android:exported="false" />
+        <activity
             android:name=".Page13Activity"
             android:exported="false" />
         <activity
