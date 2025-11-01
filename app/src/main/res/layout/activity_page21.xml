@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2B241C"
+    tools:context=".Page21">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2B241C">
+
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Create Pin"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:background="@drawable/back_arrow"
+                android:backgroundTint="@color/white"
+                android:clickable="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/pinImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/img1" />
+
+        <LinearLayout
+            android:id="@+id/inputSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pinImage"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+
+                <EditText
+                    android:id="@+id/pinTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:hint="Add a title to your Pin"
+                    android:background="@drawable/textbox2"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:gravity="top"
+                    android:textColor="@color/white"
+                    android:textColorHint="#999999"
+                    android:textSize="15sp"
+                    android:maxLength="100" />
+
+                <TextView
+                    android:id="@+id/titleCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pinTitle"
+                    android:layout_marginTop="3dp"
+                    android:layout_alignParentStart="true"
+                    android:text="0/100"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/pinDescription"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Tell everyone what your Pin is about"
+                android:background="@drawable/textbox2"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:gravity="top"
+                android:textColor="@color/white"
+                android:textColorHint="#999999"
+                android:textSize="15sp"
+                android:layout_marginBottom="15dp" />
+
+            <EditText
+                android:id="@+id/pinLink"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Add a destination link"
+                android:background="@drawable/textbox2"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/white"
+                android:textColorHint="#999999"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inputSection"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp">
+
+            <RelativeLayout
+                android:id="@+id/pickBoardRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pick a board"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/img_1" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/tagTopicsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tag related topics"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/img_1" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

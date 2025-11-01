@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#2B241C"
+    tools:context=".Page19">
+
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:backgroundTint="#FAFAFA">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back_arrow"
+            android:backgroundTint="#ffffff"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="20dp"
+            android:clickable="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/pfp"
+            android:clickable="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/pfp2"
+            android:layout_toEndOf="@id/back"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="22dp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Polina Bright"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_toEndOf="@id/pfp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="32dp" />
+
+        <ImageView
+            android:id="@+id/status"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon3"
+            android:backgroundTint="@color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp" />
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/message_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/img"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#ffffff"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Text box with background -->
+        <RelativeLayout
+            android:id="@+id/t"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/text_boc"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/messageInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Message..."
+                android:background="@null"
+                android:textColorHint="#989898"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center_vertical" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
