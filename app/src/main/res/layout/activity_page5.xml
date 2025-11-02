@@ -19,7 +19,7 @@
             android:src="@drawable/back_arrow"
             android:background="@null"
             android:backgroundTint="@color/white"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="15dp" />
     </RelativeLayout>
 
@@ -27,7 +27,7 @@
     <RelativeLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="270dp" />
+        android:layout_height="240dp" />
 
 
     <RelativeLayout

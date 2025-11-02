@@ -55,8 +55,7 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_centerHorizontal="true"
         android:id="@+id/scrollView"
         android:layout_below="@id/searching"
         android:layout_above="@+id/footer"
