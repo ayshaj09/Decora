@@ -103,24 +103,49 @@
                 android:text="0/100"
                 android:textColor="#999999"
                 android:textSize="12sp" />
-            <EditText
-                android:id="@+id/pinDescription"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:hint="Tell everyone what your Pin is about"
-                android:background="@drawable/textbox2"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="10dp"
-                android:gravity="top"
-                android:textColor="@color/white"
-                android:textColorHint="#999999"
-                android:textSize="15sp"
-                android:layout_marginBottom="15dp" />
+                android:orientation="vertical"
+                android:id="@+id/descriptionTitle"
+                android:background="@drawable/textbox2">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="top"
+                    android:hint="Description"
+                    android:maxLength="100"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#999999"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="null"
+                    android:hint="Add a description, mention or hashtags to your pin"
+                    android:layout_marginLeft="10dp"
+                    android:maxLength="100"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="15sp"/>
+
+
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/pinLink"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:hint="Add a destination link"
                 android:background="@drawable/textbox2"
                 android:paddingHorizontal="15dp"
@@ -179,5 +204,10 @@
                     android:src="@drawable/img_1" />
             </RelativeLayout>
         </LinearLayout>
+
+
     </RelativeLayout>
+
+
+
 </ScrollView>

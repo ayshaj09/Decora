@@ -105,7 +105,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/furniture5"
+            android:src="@drawable/r3"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -114,7 +114,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/furniture6"
+            android:src="@drawable/r1"
             android:layout_margin="1dp"
             android:clickable="true"/>
     </LinearLayout>
@@ -140,7 +140,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r1"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -149,7 +149,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/ck"
+            android:src="@drawable/r5"
             android:layout_margin="1dp"
             android:clickable="true"/>
     </LinearLayout>
@@ -166,7 +166,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r4"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -175,7 +175,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r1"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -184,7 +184,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/ck"
+            android:src="@drawable/r3"
             android:layout_margin="1dp"
             android:clickable="true"/>
     </LinearLayout>
@@ -201,7 +201,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r1"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -210,7 +210,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r2"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -219,7 +219,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/ck"
+            android:src="@drawable/r3"
             android:layout_margin="1dp"
             android:clickable="true"/>
     </LinearLayout>
@@ -236,7 +236,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r1"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -245,7 +245,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/"
+            android:src="@drawable/r4"
             android:layout_margin="1dp"
             android:clickable="true"/>
 
@@ -254,7 +254,7 @@
             android:layout_height="130dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/ck"
+            android:src="@drawable/r5"
             android:layout_margin="1dp"
             android:clickable="true"/>
     </LinearLayout>
