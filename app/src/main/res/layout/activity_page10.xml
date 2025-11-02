@@ -41,8 +41,8 @@
 
                 <ImageView
                     android:id="@+id/searchIcon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
 
 
                     android:layout_alignParentEnd="true"
@@ -52,43 +52,47 @@
                     app:tint="@color/white" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/wow"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Popular on De'Cora"
-
-
-                android:layout_marginTop="30dp"
-                android:textColor="@color/white"
-                android:layout_marginStart="30dp" />
-
-            <RelativeLayout
-                android:id="@+id/wow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp"
+                android:paddingTop="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dining Room inspo"
-                    android:textSize="20sp"
+                    android:text="Popular on De'Cora"
+                    android:textSize="10sp"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dining Room Inspo"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="30dp" />
+                    android:textColor="@color/white" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:src="@drawable/search"
+                app:tint="@color/white"/>
+            </LinearLayout>
+        </LinearLayout>
 
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/search"
-                    app:tint="@color/white" />
-            </RelativeLayout>
 
-            <LinearLayout
+
+        <LinearLayout
                 android:id="@+id/first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +106,7 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
+                    android:layout_marginRight="2dp"
                     android:src="@drawable/r1"
                     android:layout_margin="1dp"
                     android:clickable="true" />
@@ -111,7 +115,6 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r2"
                     android:layout_margin="1dp"
                     android:clickable="true" />
@@ -120,35 +123,47 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r3"
                     android:layout_margin="1dp"
                     android:clickable="true" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/wow3"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp"
+                android:paddingTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bedroom aesthetics"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="30dp" />
+                    android:text="For you"
+                    android:textSize="10sp"
+                    android:textColor="@color/white" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/search"
-                    app:tint="@color/white" />
-            </RelativeLayout>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Minimalist Interior"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/search"
+                        app:tint="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/second"
@@ -164,7 +179,6 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r4"
                     android:layout_margin="1dp"
                     android:clickable="true" />
@@ -173,7 +187,6 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r5"
                     android:layout_margin="1dp"
                     android:clickable="true" />
@@ -182,35 +195,47 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r1"
                     android:layout_margin="1dp"
                     android:clickable="true" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/wow4"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp"
+                android:paddingTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Living Room Vibes"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="30dp" />
+                    android:text="New trends"
+                    android:textSize="10sp"
+                    android:textColor="@color/white" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/search"
-                    app:tint="@color/white" />
-            </RelativeLayout>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Bubble Decor"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/search"
+                        app:tint="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/third"
@@ -226,7 +251,6 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r3"
                     android:layout_margin="1dp"
                     android:clickable="true" />
@@ -235,7 +259,6 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r4"
                     android:layout_margin="1dp"
                     android:clickable="true" />
@@ -244,7 +267,6 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/r2"
                     android:layout_margin="1dp"
                     android:clickable="true" />

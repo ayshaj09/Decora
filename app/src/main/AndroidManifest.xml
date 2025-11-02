@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Decora">
         <activity
+            android:name=".Page14Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Page11Activity"
+            android:exported="false" />
+        <activity
             android:name=".Page10Activity"
             android:exported="false" />
         <activity
