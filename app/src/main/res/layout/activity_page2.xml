@@ -88,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/pictures2"
         android:id="@+id/picture4"
+        android:clickable="true"
         android:background="@drawable/login_button"
         android:layout_height="55dp"
         android:layout_marginLeft="30dp"
@@ -111,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/picture4"
         android:background="@drawable/rectangle11"
-
+        android:clickable="true"
         android:layout_height="55dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"

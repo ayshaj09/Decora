@@ -87,8 +87,8 @@
             android:layout_height="wrap_content"
             android:text="David Cohin"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:background="null"
+            android:textSize="18sp"
+
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -116,8 +116,8 @@
             android:layout_height="wrap_content"
             android:text="Dvid"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:background="null"
+            android:textSize="18sp"
+
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -145,8 +145,8 @@
             android:layout_height="wrap_content"
             android:text="david@gmail.com"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:background="null"
+            android:textSize="18sp"
+
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -174,8 +174,8 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/grey"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:background="null"
+            android:textSize="18sp"
+
             android:layout_marginStart="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>

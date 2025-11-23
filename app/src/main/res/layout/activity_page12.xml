@@ -40,10 +40,9 @@
                 android:hint="Search your saved ideas"
                 android:text="Beds"
                 android:textColor="@color/white"
-                android:textColorHint="grey"
-                android:background="null"
 
-                android:textSize="16dp"
+
+                android:textSize="16sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 />

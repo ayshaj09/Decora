@@ -81,7 +81,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="null"
+
                     android:hint="Tell everyone what your pin is about"
                     android:layout_marginLeft="10dp"
                     android:maxLength="100"
@@ -128,7 +128,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="null"
+
                     android:hint="Add a description, mention or hashtags to your pin"
                     android:layout_marginLeft="10dp"
                     android:maxLength="100"

@@ -33,6 +33,7 @@
                 android:clickable="true" />
 
             <TextView
+                android:clickable="true"
                 android:layout_toRightOf="@+id/back"
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
@@ -76,6 +77,8 @@
             android:layout_marginTop="35dp">
 
             <EditText
+
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:hint="Email"
@@ -86,6 +89,8 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/yourname"
+
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="15dp"
@@ -97,6 +102,8 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/phoneNumber"
+
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="15dp"
@@ -109,6 +116,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="15dp"
@@ -121,6 +129,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/confirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="15dp"
@@ -135,6 +144,7 @@
 
 
         <TextView
+            android:clickable="true"
             android:id="@+id/createAccount"
             android:layout_width="340dp"
             android:layout_height="50dp"

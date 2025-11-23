@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Search your saved ideas"
                 android:textColorHint="@color/grey"
-                android:background="null"
+
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:layout_centerVertical="true"

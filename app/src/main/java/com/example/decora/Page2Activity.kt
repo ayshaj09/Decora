@@ -1,6 +1,8 @@
 package com.example.decora
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.RelativeLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,10 +13,21 @@ class Page2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_page2)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val login=findViewById<RelativeLayout>(R.id.pictures5)
+        val signup=findViewById<RelativeLayout>(R.id.picture4)
+
+        login.setOnClickListener{
+            val intent= Intent(this, Page7Activity::class.java)
+            startActivity(intent)
+
         }
+
+        signup.setOnClickListener{
+            val intent= Intent(this, Page6Activity::class.java)
+            startActivity(intent)
+
+        }
+
     }
 }
