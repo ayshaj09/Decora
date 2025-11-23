@@ -63,7 +63,7 @@ class Page6Activity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-
+//updated
                 val url = URL(Config.URL_SIGNUP)
 
                 val conn = url.openConnection() as HttpURLConnection
