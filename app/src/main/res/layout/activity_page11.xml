@@ -20,9 +20,10 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Bed"
+            android:hint="Search"
             android:textColorHint="@color/grey"
             android:background="@null"
+            android:text="Bed"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginStart="15dp"
@@ -34,8 +35,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="2dp"
             android:src="@drawable/search"
             app:tint="@color/white" />
     </RelativeLayout>
@@ -47,7 +47,7 @@
         android:text="Cancel"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="50dp"
         android:layout_toEndOf="@id/srch"
         android:layout_marginStart="10dp"
         android:clickable="true"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@id/srch"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
 
@@ -79,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bed"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             />
 
@@ -118,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bed"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             />
 
@@ -157,6 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bed"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             />
 
@@ -198,6 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bed"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             />
 
@@ -239,6 +243,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bed"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             />
 
@@ -276,6 +281,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bed"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             />
 
