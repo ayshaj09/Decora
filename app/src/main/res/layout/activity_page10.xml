@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     android:background="@color/darkbrown"
     tools:context=".Page10Activity">
-<!--fix-->
     <ScrollView
 
         android:id="@+id/mainScroll"

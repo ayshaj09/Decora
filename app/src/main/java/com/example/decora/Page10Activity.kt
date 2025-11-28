@@ -13,7 +13,11 @@ class Page10Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page10)
-
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
         val home=findViewById<ImageView>(R.id.home)
         home.setOnClickListener {
             val intent= Intent(this, Page7Activity::class.java)
@@ -30,7 +34,7 @@ class Page10Activity : AppCompatActivity() {
 
         val pfp=findViewById<CircleImageView>(R.id.prof)
         pfp.setOnClickListener {
-            val intent= Intent(this, Page15Activity::class.java)
+            val intent= Intent(this, Page13Activity::class.java)
             startActivity(intent)
             finish()
         }

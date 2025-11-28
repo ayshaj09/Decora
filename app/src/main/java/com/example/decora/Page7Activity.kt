@@ -15,6 +15,12 @@ class Page7Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_page7)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         val srch=findViewById<ImageView>(R.id.search)
         srch.setOnClickListener {
             val intent= Intent(this, Page10Activity::class.java)
@@ -31,7 +37,7 @@ class Page7Activity : AppCompatActivity() {
 
         val pfp=findViewById<CircleImageView>(R.id.prof)
         pfp.setOnClickListener {
-            val intent= Intent(this, Page15Activity::class.java)
+            val intent= Intent(this, Page13Activity::class.java)
             startActivity(intent)
             finish()
         }
