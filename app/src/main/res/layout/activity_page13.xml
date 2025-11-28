@@ -21,6 +21,7 @@
             android:layout_marginLeft="20dp"
             android:src="@drawable/pfp2"
             android:layout_weight="1"
+            android:id="@+id/prof"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:clickable="true"/>
@@ -57,7 +58,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Search your saved ideas"
                 android:textColorHint="@color/grey"
-
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:layout_centerVertical="true"

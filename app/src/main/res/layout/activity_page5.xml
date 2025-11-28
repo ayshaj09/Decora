@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/back_arrow"
             android:background="@null"
+            android:id="@+id/back"
+            android:clickable="true"
             android:backgroundTint="@color/white"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="15dp" />
@@ -27,7 +29,7 @@
     <RelativeLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="210dp" />
 
 
     <RelativeLayout
@@ -93,6 +95,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Your email"
             android:inputType="textEmailAddress"
             android:textSize="15sp" />
@@ -104,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password"
+
         android:textColor="@color/darkbrown"
         android:textStyle="bold"
         android:layout_below="@id/picture4"
@@ -128,6 +132,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="45dp"
             android:background="@null"
+            android:textColor="@color/black"
             android:hint="Enter your password"
             android:inputType="textPassword"
             android:textSize="15sp" />
@@ -219,6 +224,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="  Sign Up"
+            android:id="@+id/signup"
+            android:clickable="true"
             android:textColor="@color/brown"
             android:textStyle="bold">
 

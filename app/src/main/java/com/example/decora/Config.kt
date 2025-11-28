@@ -1,4 +1,4 @@
-package com.example.decora
+package com.example.decora.com.example.decora
 
 object Config {
 
@@ -6,6 +6,6 @@ object Config {
 
 
     const val URL_SIGNUP = "${BASE_URL}signup.php"
-
+    const val URL_LOGIN = "${BASE_URL}login.php"
 
 }

@@ -15,15 +15,6 @@
         android:id="@+id/top"
         >
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/back"
-            android:clickable="true"
-            android:background="@drawable/back_arrow"
-            android:layout_marginHorizontal="25dp"
-            android:backgroundTint="@color/white"/>
 
         <ImageView
             android:layout_width="40dp"
@@ -140,6 +131,8 @@
             android:text="Saved"
             android:layout_marginBottom="2dp"
             android:textSize="15dp"
+            android:id="@+id/svd"
+            android:clickable="true"
             android:textColor="@color/white"
             />
 

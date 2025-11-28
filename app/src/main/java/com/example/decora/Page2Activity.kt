@@ -18,7 +18,7 @@ class Page2Activity : AppCompatActivity() {
         val signup=findViewById<RelativeLayout>(R.id.picture4)
 
         login.setOnClickListener{
-            val intent= Intent(this, Page7Activity::class.java)
+            val intent= Intent(this, Page5Activity::class.java)
             startActivity(intent)
 
         }
