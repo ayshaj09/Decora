@@ -27,6 +27,9 @@
             android:name=".Page14Activity"
             android:exported="false" />
         <activity
+            android:name=".MessageActivity"
+            android:exported="false" />
+        <activity
             android:name=".Page11Activity"
             android:exported="false" />
         <activity

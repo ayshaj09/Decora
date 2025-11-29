@@ -305,7 +305,7 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginTop="-3dp"
-            android:src="@drawable/pfp2"
+            android:src="@drawable/defaultpfp"
             android:clickable="true" />
     </LinearLayout>
 
