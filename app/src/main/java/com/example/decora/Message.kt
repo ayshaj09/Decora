@@ -1,5 +1,5 @@
 package com.example.decora
-
+//data class
 data class Message(
     val id: Int,
     val senderId: Int,
