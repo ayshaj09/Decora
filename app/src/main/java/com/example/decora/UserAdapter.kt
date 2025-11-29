@@ -13,42 +13,55 @@ import de.hdodenhof.circleimageview.CircleImageView
 class UserAdapter(private var userList: ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    // 1. Create the View (Inflate user_item.xml)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         return UserViewHolder(itemView)
     }
 
-    // 2. Bind Data (Put Name and Image into the View)
+
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val currentUser = userList[position]
 
         holder.tvName.text = currentUser.name
 
-        // Reset image to default first
-        holder.imgProfile.setImageResource(R.drawable.pfp2)
+        // Reset image
+        holder.imgProfile.setImageResource(R.drawable.defaultpfp)
 
-        // Decode Base64 Image if it exists
+        // Set Image
         if (currentUser.pfp.isNotEmpty()) {
             val bitmap = decodeBase64(currentUser.pfp)
             if (bitmap != null) {
                 holder.imgProfile.setImageBitmap(bitmap)
             }
         }
+
+
+        holder.itemView.setOnClickListener {
+
+            val intent = android.content.Intent(holder.itemView.context, otherUserProfile::class.java)
+
+
+            intent.putExtra("EXTRA_NAME", currentUser.name)
+            intent.putExtra("EXTRA_PFP", currentUser.pfp)
+
+
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
-    // 3. Count how many items to display
+
     override fun getItemCount(): Int {
         return userList.size
     }
 
-    // 4. Helper to Update List (For Search Filter)
+
     fun updateList(newList: List<User>) {
         userList = ArrayList(newList)
-        notifyDataSetChanged() // Refreshes the RecyclerView
+        notifyDataSetChanged()
     }
 
-    // 5. Base64 Decoder
+
     private fun decodeBase64(input: String): Bitmap? {
         return try {
             val decodedByte = Base64.decode(input, Base64.DEFAULT)

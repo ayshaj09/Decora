@@ -25,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Decora">
         <activity
+            android:name=".otherUserProfile"
+            android:exported="false" />
+        <activity
             android:name=".userSearchActivity"
             android:exported="false" />
         <activity
