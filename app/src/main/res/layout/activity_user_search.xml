@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:background="@color/darkbrown"
+    android:layout_height="match_parent"
+    tools:context=".userSearchActivity">
+
+    <RelativeLayout
+        android:id="@+id/srch"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/circle"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Search"
+            android:textColorHint="@color/grey"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="15dp"
+            android:layout_toStartOf="@+id/searchIcon"
+            android:paddingEnd="50dp" />
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/search"
+            app:tint="@color/white" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="50dp"
+        android:layout_toEndOf="@id/srch"
+        android:layout_marginStart="10dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/srch"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/pinsTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Pins"
+            android:textSize="20sp"
+            android:textColor="@color/grey"
+            android:clickable="true"/>
+
+        <TextView
+            android:id="@+id/userSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Users"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:clickable="true"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabLayout"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="20dp" />
+
+</RelativeLayout>

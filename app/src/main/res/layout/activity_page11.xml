@@ -53,7 +53,38 @@
         android:clickable="true"
         android:focusable="true" />
 
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/srch">
 
+        <TextView
+            android:id="@+id/pinsTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Pins"
+            android:textSize="25sp"
+            android:clickable="true"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/userSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Users"
+            android:textSize="25sp"
+            android:clickable="true"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -61,8 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_below="@id/srch"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/tabLayout"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
 
@@ -71,8 +102,6 @@
             android:layout_height="50dp"
             android:src="@drawable/search"
             app:tint="@color/white"
-
-
             />
 
         <TextView
@@ -93,8 +122,6 @@
             android:textSize="20sp"
             />
 
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -111,8 +138,6 @@
             android:layout_height="50dp"
             android:src="@drawable/search"
             app:tint="@color/white"
-
-
             />
 
         <TextView
@@ -133,8 +158,6 @@
             android:textSize="20sp"
             />
 
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -151,8 +174,6 @@
             android:layout_height="50dp"
             android:src="@drawable/search"
             app:tint="@color/white"
-
-
             />
 
         <TextView
@@ -173,10 +194,6 @@
             android:textSize="20sp"
             />
 
-
-
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -193,8 +210,6 @@
             android:layout_height="50dp"
             android:src="@drawable/search"
             app:tint="@color/white"
-
-
             />
 
         <TextView
@@ -215,10 +230,6 @@
             android:textSize="20sp"
             />
 
-
-
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -235,8 +246,6 @@
             android:layout_height="50dp"
             android:src="@drawable/search"
             app:tint="@color/white"
-
-
             />
 
         <TextView
@@ -273,8 +282,6 @@
             android:layout_height="50dp"
             android:src="@drawable/search"
             app:tint="@color/white"
-
-
             />
 
         <TextView
@@ -295,11 +302,6 @@
             android:textSize="20sp"
             />
 
-
-
-
-
     </LinearLayout>
-
 
 </RelativeLayout>
