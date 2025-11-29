@@ -83,19 +83,22 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp">
-        <TextView
-            android:id="@+id/text3"
+        <EditText
+
+            android:id="@+id/otpInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Enter code"
-
+            android:background="@null"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:textSize="12dp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
     <RelativeLayout
 
+        android:clickable="true"
+        android:id="@+id/verifyOtp"
         android:layout_width="match_parent"
         android:layout_below="@id/picture4"
         android:backgroundTint="@color/brown"

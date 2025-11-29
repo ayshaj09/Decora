@@ -72,31 +72,43 @@
 
         </TextView>
     </RelativeLayout>
-    <RelativeLayout
 
-        android:layout_width="match_parent"
-        android:layout_below="@id/texts"
+
+    <RelativeLayout
         android:id="@+id/picture4"
-        android:background="@drawable/rectangle11"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/texts"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp">
-        <TextView
-            android:id="@+id/text3"
-            android:layout_width="wrap_content"
+        android:background="@drawable/rectangle11">
+
+        <EditText
+
+            android:id="@+id/mobileNumberInput"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mobile Number"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-           android:textSize="12dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            android:background="@null"
+
+            android:hint="Mobile Number"
+            android:inputType="phone"
+            android:textSize="18sp" />
 
     </RelativeLayout>
+
+
     <RelativeLayout
 
+        android:clickable="true"
+        android:id="@+id/continueButton"
         android:layout_width="match_parent"
         android:layout_below="@id/picture4"
-android:backgroundTint="@color/brown"
+        android:backgroundTint="@color/brown"
         android:background="@drawable/login_button"
         android:layout_height="40dp"
         android:layout_marginLeft="30dp"
