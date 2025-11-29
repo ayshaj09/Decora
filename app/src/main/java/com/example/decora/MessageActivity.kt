@@ -57,12 +57,11 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun loadUsers() {
-        // NOTE: Ensure URL_GET_CHAT_USERS is defined in Config.kt
-        // const val URL_GET_CHAT_USERS = "${BASE_URL}get_chat_users.php"
         val urlString = Config.BASE_URL + "fetch_chat_users.php"
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
+                // ... existing connection setup ...
                 val url = URL(urlString)
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
@@ -77,6 +76,15 @@ class MessageActivity : AppCompatActivity() {
                 os.flush()
                 os.close()
 
+                // Check for Server Errors (500, 404, etc)
+                val responseCode = conn.responseCode
+                if (responseCode != 200) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MessageActivity, "Server Error: $responseCode", Toast.LENGTH_LONG).show()
+                    }
+                    return@launch
+                }
+
                 val reader = BufferedReader(InputStreamReader(conn.inputStream))
                 val response = reader.readText()
                 reader.close()
@@ -90,27 +98,34 @@ class MessageActivity : AppCompatActivity() {
                     for (i in 0 until usersArray.length()) {
                         val obj = usersArray.getJSONObject(i)
 
-                        // --- FIXED JSON PARSING LOGIC ---
                         val id = obj.getInt("id")
                         val name = obj.getString("full_name")
 
-                        // Safe check for null strings
-                        val pic = if (obj.isNull("profile_pic")) null else obj.getString("profile_pic")
+                        // Handle nulls safely
+                        val pic = if (obj.isNull("profile_picture")) null else obj.getString("profile_picture")
                         val msg = if (obj.isNull("last_message")) null else obj.getString("last_message")
                         val time = if (obj.isNull("last_time")) null else obj.getString("last_time")
 
                         userList.add(UserChat(id, name, pic, msg, time))
-                        // --------------------------------
                     }
 
                     withContext(Dispatchers.Main) {
+                        if (userList.isEmpty()) {
+                            Toast.makeText(this@MessageActivity, "No other users found", Toast.LENGTH_SHORT).show()
+                        }
                         rvUsers.adapter = UsersAdapter(this@MessageActivity, userList)
+                    }
+                } else {
+                    // NEW: Show error message if success is false
+                    val errorMsg = jsonResponse.optString("message", "Unknown error")
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MessageActivity, "Failed: $errorMsg", Toast.LENGTH_LONG).show()
                     }
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MessageActivity, "Error loading chats: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MessageActivity, "App Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

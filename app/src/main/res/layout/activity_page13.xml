@@ -418,7 +418,7 @@
             android:layout_marginTop="-3dp"
             android:layout_weight="1"
             android:clickable="true"
-            android:src="@drawable/pfp2" />
+            android:src="@drawable/defaultpfp" />
 
 
     </LinearLayout>
