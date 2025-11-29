@@ -119,7 +119,7 @@
                 android:id="@+id/profilePic"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/pfp2"
+                android:src="@drawable/defaultpfp"
                 android:clickable="true" />
 
             <TextView

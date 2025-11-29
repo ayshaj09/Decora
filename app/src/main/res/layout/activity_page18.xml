@@ -110,7 +110,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/pfp2"/>
+            android:src="@drawable/defaultpfp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -532,7 +532,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="0dp"
             android:layout_height="28dp"
-            android:src="@drawable/pfp2"
+            android:src="@drawable/defaultpfp"
             android:layout_weight="1"
             android:id="@+id/prof"
             android:layout_marginTop="-3dp"
