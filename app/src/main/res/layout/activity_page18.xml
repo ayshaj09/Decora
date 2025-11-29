@@ -62,6 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="See all"
+            android:id="@+id/messages"
+            android:clickable="true"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_toLeftOf="@id/arr"
@@ -100,6 +102,7 @@
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/dm"
+        android:clickable="true"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="25dp"
         android:layout_height="wrap_content">
