@@ -34,10 +34,13 @@ class Page13Activity : AppCompatActivity() {
             insets
         }
 
+        val pfp2=findViewById<CircleImageView>(R.id.prof)
+        loadCurrentUserProfile(pfp2)
+
         val pfp=findViewById<CircleImageView>(R.id.pfp)
         loadCurrentUserProfile(pfp)
         pfp.setOnClickListener {
-            val intent= Intent(this, Page14Activity::class.java)
+            val intent= Intent(this, Page15Activity::class.java)
             startActivity(intent)
         }
         val srch=findViewById<ImageView>(R.id.search)

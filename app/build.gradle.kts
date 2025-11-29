@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.google.firebase:firebase-messaging:23.4.0")
 
 
     implementation("com.android.volley:volley:1.2.1")
