@@ -67,7 +67,7 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
         // Handle Last Message Logic
         if (!user.lastMessage.isNullOrEmpty()) {
             holder.tvLastMessage.text = user.lastMessage
-            holder.tvTime.text = "Recent"
+            holder.tvTime.text = "Now"
         } else {
             holder.tvLastMessage.text = "Tap to chat"
             holder.tvTime.text = ""
