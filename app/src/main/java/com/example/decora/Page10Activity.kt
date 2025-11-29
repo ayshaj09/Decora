@@ -3,6 +3,7 @@ package com.example.decora
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -37,6 +38,14 @@ class Page10Activity : AppCompatActivity() {
             val intent= Intent(this, Page13Activity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val search=findViewById<RelativeLayout>(R.id.srch)
+
+        search.setOnClickListener {
+            val intent=Intent(this, Page11Activity::class.java)
+            startActivity(intent)
+
         }
     }
 }
