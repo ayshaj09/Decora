@@ -15,4 +15,6 @@ object Config {
     const val URL_SEND_MESSAGE = "${BASE_URL}send_message.php"
     const val URL_GET_MESSAGES = "${BASE_URL}recieve_message.php"
 
+    const val URL_GET_USERS = "${BASE_URL}get_users.php"
+
 }

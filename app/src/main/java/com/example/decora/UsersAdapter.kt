@@ -32,7 +32,7 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
 
         holder.tvUsername.text = user.username
 
-        // --- FIXED: Base64 Logic (Matches your PHP Upload) ---
+
         if (!user.profilePic.isNullOrEmpty()) {
             try {
                 // 1. Clean the string if it has the "data:image..." prefix
@@ -55,16 +55,16 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
                     holder.imgProfile.setImageResource(R.drawable.defaultpfp)
                 }
             } catch (e: Exception) {
-                // If decoding fails (bad data), show default
+
                 holder.imgProfile.setImageResource(R.drawable.defaultpfp)
             }
         } else {
-            // If database field is empty/null, show default
+
             holder.imgProfile.setImageResource(R.drawable.defaultpfp)
         }
-        // -----------------------------------------------------
 
-        // Handle Last Message Logic
+
+
         if (!user.lastMessage.isNullOrEmpty()) {
             holder.tvLastMessage.text = user.lastMessage
             holder.tvTime.text = "Recent"
@@ -73,9 +73,9 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
             holder.tvTime.text = ""
         }
 
-        // On Click -> Open CHAT Activity (Not MessageActivity)
+
         holder.container.setOnClickListener {
-            // FIX: This must go to ChatActivity (the individual chat screen), not MessageActivity (the list)
+
             val intent = Intent(context, Page19Activity::class.java)
             intent.putExtra("partner_id", user.id)
             intent.putExtra("partner_name", user.username)
