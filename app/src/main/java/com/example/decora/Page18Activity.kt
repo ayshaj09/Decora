@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -53,6 +54,11 @@ class Page18Activity : AppCompatActivity() {
             val intent= Intent(this, Page7Activity::class.java)
             startActivity(intent)
             finish()
+        }
+        val msg=findViewById<TextView>(R.id.messages)
+        msg.setOnClickListener {
+            val intent= Intent(this, MessageActivity::class.java)
+            startActivity(intent)
         }
 
         val pfp = findViewById<CircleImageView>(R.id.prof)
