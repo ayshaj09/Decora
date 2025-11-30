@@ -35,6 +35,8 @@ class Page14Activity : AppCompatActivity() {
         }
         val pfp = findViewById<CircleImageView>(R.id.prof)
 
+        val back=findViewById<ImageView>(R.id.back)
+        back.setOnClickListener { finish() }
         // --- NEW: Load the Profile Picture ---
         loadCurrentUserProfile(pfp)
     }

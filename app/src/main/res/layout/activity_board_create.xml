@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2B241C"
+    tools:context=".BoardCreate">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2B241C">
+
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Create Board"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:background="@drawable/back_arrow"
+                android:backgroundTint="@color/white"
+                android:clickable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:id="@+id/done"
+                android:clickable="true"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                />
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/pinImage"
+            android:layout_below="@id/top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            >
+
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="120dp"
+            android:backgroundTint="@color/grey"
+            android:src="@color/grey"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@color/grey"/>
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="58.5dp"
+                android:layout_marginTop="1dp"
+                android:src="@color/grey"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/inputSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pinImage"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:id="@+id/pinTitle"
+                android:background="@drawable/textbox2">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="top"
+                    android:text="Board name"
+                    android:maxLength="100"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#999999"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etBoardName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name your board"
+                    android:layout_marginLeft="10dp"
+                    android:maxLength="100"
+                    android:background="@null"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#989898"
+                    android:textSize="15sp"/>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</ScrollView>
