@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@color/darkbrown"
     android:layout_height="match_parent"
-    tools:context=".Page11Activity">
+    android:background="@color/darkbrown"
+    tools:context=".ResultPageActivity">
 
     <RelativeLayout
         android:id="@+id/srch"
@@ -21,7 +21,7 @@
             android:id="@+id/searchInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Search Pins"
+            android:hint="Search"
             android:textColorHint="@color/grey"
             android:background="@null"
             android:textColor="@color/white"
@@ -53,47 +53,13 @@
         android:clickable="true"
         android:focusable="true" />
 
-    <LinearLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@id/srch"
-        android:paddingHorizontal="20dp">
-
-        <TextView
-            android:id="@+id/pinsTab"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Pins"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:clickable="true"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:id="@+id/userSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Users"
-            android:textSize="25sp"
-            android:clickable="true"
-            android:textColor="@color/grey"/>
-
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pinsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabLayout"
-        android:paddingHorizontal="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_below="@id/srch"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="6dp"
+        android:clipToPadding="false" />
 
 </RelativeLayout>

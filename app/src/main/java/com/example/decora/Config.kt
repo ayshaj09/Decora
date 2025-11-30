@@ -20,4 +20,8 @@ object Config {
     const val URL_FOLLOW_TOGGLE = "${BASE_URL}follow_toggle.php"
     const val URL_GET_PROFILE_STATS = "${BASE_URL}get_profile_stats.php"
 
+    const val URL_GET_PIN_TITLES = "${BASE_URL}get_pin_titles.php"
+
+    const val URL_SEARCH_PINS = "${BASE_URL}search_pins.php"
+
 }
