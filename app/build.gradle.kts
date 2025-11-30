@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -42,10 +43,10 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.google.firebase:firebase-messaging:23.4.0")
-
-
+    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
+    implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.android.volley:volley:1.2.1")
-
+    implementation("com.google.firebase:firebase-analytics")
     val cameraxVersion = "1.3.4"
     implementation("androidx.camera:camera-core:$cameraxVersion")
     implementation("androidx.camera:camera-camera2:$cameraxVersion")

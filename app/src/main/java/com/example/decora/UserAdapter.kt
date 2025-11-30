@@ -39,7 +39,7 @@ class UserAdapter(private var userList: ArrayList<User>) :
 
         holder.itemView.setOnClickListener {
 
-            val intent = android.content.Intent(holder.itemView.context, otherUserProfile::class.java)
+            val intent = android.content.Intent(holder.itemView.context, OtherUserProfile::class.java)
 
             intent.putExtra("EXTRA_ID", currentUser.id)
             intent.putExtra("EXTRA_NAME", currentUser.name)

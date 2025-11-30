@@ -53,7 +53,8 @@ class Page7Activity : AppCompatActivity() {
         val pfp = findViewById<CircleImageView>(R.id.prof)
 
         loadCurrentUserProfile(pfp)
-
+        val serviceIntent = Intent(this, NotificationService::class.java)
+        startService(serviceIntent)
         // --- NEW: Update FCM Token ---
         updateFcmToken()
         // -----------------------------
@@ -62,6 +63,14 @@ class Page7Activity : AppCompatActivity() {
             val intent = Intent(this, Page13Activity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) !=
+                android.content.pm.PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
+            }
         }
     }
 
@@ -112,52 +121,36 @@ class Page7Activity : AppCompatActivity() {
     private fun loadCurrentUserProfile(targetImageView: ImageView) {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
-
         if (currentUserId == -1) return
-
         val urlString = Config.BASE_URL + "get_user_profile.php"
-
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(urlString)
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
                 conn.doOutput = true
-
                 val jsonParam = JSONObject()
                 jsonParam.put("user_id", currentUserId)
-
                 val os = OutputStreamWriter(conn.outputStream)
                 os.write(jsonParam.toString())
                 os.flush()
                 os.close()
-
                 val reader = BufferedReader(InputStreamReader(conn.inputStream))
                 val response = reader.readText()
-                reader.close()
-
                 val json = JSONObject(response)
                 if (json.optBoolean("success")) {
                     val user = json.getJSONObject("user")
                     val pfpString = if (user.isNull("profile_picture")) "" else user.optString("profile_picture")
-
                     if (pfpString.isNotEmpty()) {
                         try {
                             val cleanBase64 = if (pfpString.contains(",")) pfpString.split(",")[1] else pfpString
-                            val bytes = Base64.decode(cleanBase64, Base64.DEFAULT)
-                            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-
-                            withContext(Dispatchers.Main) {
-                                if (bitmap != null) targetImageView.setImageBitmap(bitmap)
-                            }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
+                            val bytes = android.util.Base64.decode(cleanBase64, android.util.Base64.DEFAULT)
+                            val bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                            withContext(Dispatchers.Main) { if (bitmap != null) targetImageView.setImageBitmap(bitmap) }
+                        } catch (e: Exception) {}
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            } catch (e: Exception) {}
         }
     }
 }

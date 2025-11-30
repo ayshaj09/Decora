@@ -330,7 +330,35 @@ class Page19Activity : AppCompatActivity() {
             }
         } catch (e: Exception) { }
     }
+    private fun sendNotificationSignal(receiverId: String, messageText: String) {
+        val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val myName = sharedPrefs.getString("full_name", "Someone") ?: "New Message"
 
+        val notificationData = HashMap<String, String>()
+        notificationData["title"] = myName
+        notificationData["body"] = messageText
+        notificationData["senderId"] = currentUserId.toString()
+        notificationData["type"] = "chat"
+
+        // Write to Firebase Realtime Database
+        com.google.firebase.database.FirebaseDatabase.getInstance()
+            .getReference("notifications")
+            .child(receiverId)
+            .push()
+            .setValue(notificationData)
+            .addOnSuccessListener {
+                // SUCCESS: You will see this in Logcat
+                android.util.Log.d("NOTIF_DEBUG", "Signal sent successfully to user $receiverId")
+
+                // Optional: Toast for testing (remove later)
+                // Toast.makeText(this, "Notification Signal Sent!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                // FAILURE: Check Logcat for permission errors
+                android.util.Log.e("NOTIF_DEBUG", "Failed to send signal: ${e.message}")
+                Toast.makeText(this, "Notif Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
     private fun sendMessage(text: String) {
         val urlString = Config.BASE_URL + "send_message.php"
         lifecycleScope.launch(Dispatchers.IO) {
@@ -369,6 +397,7 @@ class Page19Activity : AppCompatActivity() {
                         adapter.setMessages(currentMessages)
                         rvChat.scrollToPosition(currentMessages.size - 1)
                     }
+                    sendNotificationSignal(chatPartnerId.toString(), text)
                     // Background refresh to confirm order
                     fetchMessages()
                 } else {

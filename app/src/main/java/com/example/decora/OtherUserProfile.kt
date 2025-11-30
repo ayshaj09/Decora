@@ -23,7 +23,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 
-class otherUserProfile : AppCompatActivity() {
+class OtherUserProfile : AppCompatActivity() {
 
     private var targetUserId: String = ""
     private var myUserId: String = ""

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1081076047526",
+    "project_id": "decora-f0248",
+    "storage_bucket": "decora-f0248.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081076047526:android:8b8fddd3236420c6309e67",
+        "android_client_info": {
+          "package_name": "com.example.decora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-yQNjVnCH6lOpcDB93e3CNLgWuJxEgRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
