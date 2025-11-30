@@ -21,7 +21,7 @@ import java.net.URL
 
 class ResultPageActivity : AppCompatActivity() {
 
-    // Use the existing Pin class
+    // Use the existing Pin class for this
     private val pinList = ArrayList<Pin>()
     private lateinit var adapter: PinResultAdapter
 
