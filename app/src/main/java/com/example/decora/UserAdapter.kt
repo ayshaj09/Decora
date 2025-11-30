@@ -41,7 +41,7 @@ class UserAdapter(private var userList: ArrayList<User>) :
 
             val intent = android.content.Intent(holder.itemView.context, otherUserProfile::class.java)
 
-
+            intent.putExtra("EXTRA_ID", currentUser.id)
             intent.putExtra("EXTRA_NAME", currentUser.name)
             intent.putExtra("EXTRA_PFP", currentUser.pfp)
 

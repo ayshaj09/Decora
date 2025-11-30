@@ -85,9 +85,10 @@ class userSearchActivity : AppCompatActivity() {
 
                         for (i in 0 until usersArray.length()) {
                             val userObj = usersArray.getJSONObject(i)
+                            val id = userObj.optString("id")
                             val name = userObj.optString("full_name")
                             val base64Image = userObj.optString("profile_picture")
-                            allUsersList.add(User(name, base64Image))
+                            allUsersList.add(User(id, name, base64Image))
                         }
 
                         // Update RecyclerView on Main Thread

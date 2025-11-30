@@ -19,6 +19,7 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
         val tvLastMessage: TextView = itemView.findViewById(R.id.tvLastMessage)
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
         val imgProfile: CircleImageView = itemView.findViewById(R.id.imgProfile)
+        // Ensure your XML (message_item) has an ID for the root layout (e.g., @+id/dm)
         val container: View = itemView.findViewById(R.id.dm)
     }
 
@@ -30,44 +31,37 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
 
+        // 1. Set Username
         holder.tvUsername.text = user.username
 
 
+        holder.imgProfile.setImageResource(R.drawable.defaultpfp)
+
         if (!user.profilePic.isNullOrEmpty()) {
             try {
-                // 1. Clean the string if it has the "data:image..." prefix
+
                 val base64String = if (user.profilePic.contains(",")) {
                     user.profilePic.split(",")[1]
                 } else {
                     user.profilePic
                 }
 
-                // 2. Decode String to Bytes
                 val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
-
-                // 3. Convert Bytes to Bitmap
                 val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
 
-                // 4. Set Image
                 if (bitmap != null) {
                     holder.imgProfile.setImageBitmap(bitmap)
-                } else {
-                    holder.imgProfile.setImageResource(R.drawable.defaultpfp)
                 }
             } catch (e: Exception) {
-
-                holder.imgProfile.setImageResource(R.drawable.defaultpfp)
+                // If decoding fails, the default image is already set
+                e.printStackTrace()
             }
-        } else {
-
-            holder.imgProfile.setImageResource(R.drawable.defaultpfp)
         }
-
 
 
         if (!user.lastMessage.isNullOrEmpty()) {
             holder.tvLastMessage.text = user.lastMessage
-            holder.tvTime.text = "Now"
+
         } else {
             holder.tvLastMessage.text = "Tap to chat"
             holder.tvTime.text = ""
@@ -75,10 +69,13 @@ class UsersAdapter(private val context: Context, private val users: List<UserCha
 
 
         holder.container.setOnClickListener {
-
             val intent = Intent(context, Page19Activity::class.java)
+
+
             intent.putExtra("partner_id", user.id)
             intent.putExtra("partner_name", user.username)
+            intent.putExtra("partner_pfp", user.profilePic)
+
             context.startActivity(intent)
         }
     }

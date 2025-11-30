@@ -17,4 +17,7 @@ object Config {
 
     const val URL_GET_USERS = "${BASE_URL}get_users.php"
 
+    const val URL_FOLLOW_TOGGLE = "${BASE_URL}follow_toggle.php"
+    const val URL_GET_PROFILE_STATS = "${BASE_URL}get_profile_stats.php"
+
 }
