@@ -96,7 +96,7 @@ class ResultPageActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@ResultPageActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
-            }
+            }//phas gya
         }
     }
 }
