@@ -40,14 +40,27 @@ class Page18Activity : AppCompatActivity() {
             val intent= Intent(this, Page19Activity::class.java)
             startActivity(intent)
         }
-
-        val msg=findViewById<TextView>(R.id.messages)
-        msg.setOnClickListener {
-            val intent= Intent(this, MessageActivity::class.java)
+        val srch=findViewById<ImageView>(R.id.search)
+        srch.setOnClickListener {
+            val intent= Intent(this, Page10Activity::class.java)
             startActivity(intent)
-        }
-        val pfp = findViewById<CircleImageView>(R.id.prof)
+            finish()
 
+        }
+
+        val home=findViewById<ImageView>(R.id.home)
+        home.setOnClickListener {
+            val intent= Intent(this, Page7Activity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val pfp = findViewById<CircleImageView>(R.id.prof)
+        pfp.setOnClickListener {
+            val intent = Intent(this, Page13Activity::class.java)
+            startActivity(intent)
+            finish()
+        }
         // --- NEW: Load the Profile Picture ---
         loadCurrentUserProfile(pfp)
     }
