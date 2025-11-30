@@ -7,4 +7,3 @@ data class Pin(
     val username: String,
     val userPfp: String
 )
-

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2B241C"
-    tools:context=".Page13Activity">
+    tools:context=".PinsPage">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,41 +32,39 @@
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
             <TextView
-                android:id="@+id/saved_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Boards"
+                android:id="@+id/boards"
+                android:clickable="true"
                 android:textStyle="bold"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:layout_centerVertical="true"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white"
-                android:layout_marginTop="3dp" />
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pins"
-            android:id="@+id/pins"
-            android:clickable="true"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="2dp"
-            android:textColor="@color/white"
-            android:layout_centerVertical="true"/>
+                <TextView
+                    android:id="@+id/saved_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pins"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -115,8 +113,6 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/add"
-            android:clickable="true"
             android:background="@drawable/plus"
             android:backgroundTint="@color/white"
             android:layout_gravity="center_vertical"
@@ -126,14 +122,12 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBoards"
+        android:id="@+id/pinsRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/s"
         android:layout_above="@id/footer"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="10dp"/>
-
+        android:padding="10dp"/>
 
 
     <LinearLayout
