@@ -13,7 +13,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class UsersAdapter(private val context: Context, private val users: List<UserChat>) :
     RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
-
+//id dekhni
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvUsername: TextView = itemView.findViewById(R.id.tvUsername)
         val tvLastMessage: TextView = itemView.findViewById(R.id.tvLastMessage)
