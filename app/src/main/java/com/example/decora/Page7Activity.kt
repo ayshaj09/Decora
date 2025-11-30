@@ -33,6 +33,12 @@ class Page7Activity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            val post = findViewById<ImageView>(R.id.post)
+
+            post.setOnClickListener {
+                openGallery()
+            }
+
             insets
         }
 
@@ -71,6 +77,22 @@ class Page7Activity : AppCompatActivity() {
 
                 requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
             }
+        }
+    }
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 200)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
+            val imageUri = data.data
+
+            val intent = Intent(this, Page21Activity::class.java)
+            intent.putExtra("selectedImage", imageUri.toString())
+            startActivity(intent)
         }
     }
 

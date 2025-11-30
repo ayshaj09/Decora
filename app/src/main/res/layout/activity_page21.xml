@@ -37,6 +37,19 @@
                 android:background="@drawable/back_arrow"
                 android:backgroundTint="@color/white"
                 android:clickable="true" />
+
+            <!-- ADD ID HERE -->
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp" />
+
         </RelativeLayout>
 
         <ImageView
@@ -65,12 +78,10 @@
                 android:background="@drawable/textbox2">
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:gravity="top"
-                    android:hint="Title"
+                    android:text="Title"
                     android:maxLength="100"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
@@ -78,10 +89,11 @@
                     android:textColorHint="#999999"
                     android:textSize="15sp" />
 
+                <!-- ADD ID HERE -->
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/pinTitleInput"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:hint="Tell everyone what your pin is about"
                     android:layout_marginLeft="10dp"
                     android:maxLength="100"
@@ -89,17 +101,12 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="15sp"/>
-
-
-
             </LinearLayout>
 
             <TextView
                 android:id="@+id/titleCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/pinTitle"
-                android:layout_alignParentStart="true"
                 android:text="0/100"
                 android:textColor="#999999"
                 android:textSize="12sp" />
@@ -113,12 +120,9 @@
                 android:background="@drawable/textbox2">
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:gravity="top"
-                    android:hint="Description"
+                    android:text="Description"
                     android:maxLength="100"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
@@ -126,10 +130,11 @@
                     android:textColorHint="#999999"
                     android:textSize="15sp" />
 
+                <!-- ADD ID HERE -->
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/pinDescInput"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:hint="Add a description, mention or hashtags to your pin"
                     android:layout_marginLeft="10dp"
                     android:maxLength="100"
@@ -137,9 +142,6 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="15sp"/>
-
-
-
             </LinearLayout>
 
             <EditText
@@ -155,6 +157,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- Bottom area (unchanged) -->
         <LinearLayout
             android:id="@+id/bottomSection"
             android:layout_width="match_parent"
@@ -175,8 +178,7 @@
                     android:layout_height="wrap_content"
                     android:text="Pick a board"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_alignParentStart="true" />
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="18dp"
@@ -195,8 +197,7 @@
                     android:layout_height="wrap_content"
                     android:text="Tag related topics"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_alignParentStart="true" />
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="18dp"
@@ -206,9 +207,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-
     </RelativeLayout>
-
-
 
 </ScrollView>

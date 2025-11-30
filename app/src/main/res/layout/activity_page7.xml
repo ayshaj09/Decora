@@ -277,14 +277,14 @@
         <ImageView
             android:id="@+id/post"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/plus"
-            app:tint="@color/white"
+            android:layout_height="19dp"
             android:layout_marginBottom="3dp"
-            android:scaleType="centerInside"
+            android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:clickable="true" />
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/plus"
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/dm"
