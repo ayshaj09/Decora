@@ -156,8 +156,10 @@
             android:layout_marginLeft="30dp"
             android:id="@+id/created"
             android:textSize="15dp"
+            android:clickable="true"
             android:textColor="@color/white"
             />
+
     </LinearLayout>
 
     <LinearLayout

@@ -19,7 +19,7 @@
             android:layout_width="30dp"
             android:layout_height="28dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/pfp2"
+            android:src="@drawable/defaultpfp"
             android:layout_weight="1"
             android:id="@+id/pfp"
             android:layout_centerVertical="true"

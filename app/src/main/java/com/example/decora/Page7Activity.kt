@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.decora.com.example.decora.Config
+import com.google.firebase.messaging.FirebaseMessaging
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,14 +52,60 @@ class Page7Activity : AppCompatActivity() {
 
         val pfp = findViewById<CircleImageView>(R.id.prof)
 
-        // --- NEW: Load the Profile Picture ---
         loadCurrentUserProfile(pfp)
-        // -------------------------------------
+
+        // --- NEW: Update FCM Token ---
+        updateFcmToken()
+        // -----------------------------
 
         pfp.setOnClickListener {
             val intent = Intent(this, Page13Activity::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun updateFcmToken() {
+        val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
+
+        if (currentUserId == -1) return
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            uploadTokenToServer(currentUserId, token)
+        }
+    }
+
+    private fun uploadTokenToServer(userId: Int, token: String) {
+        val urlString = Config.BASE_URL + "update_fcm_token.php"
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(urlString)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+                val jsonParam = JSONObject()
+                jsonParam.put("user_id", userId)
+                jsonParam.put("fcm_token", token)
+
+                val os = OutputStreamWriter(conn.outputStream)
+                os.write(jsonParam.toString())
+                os.flush()
+                os.close()
+
+                // Check response (Optional, fire and forget)
+                val code = conn.responseCode
+                Log.d("FCM", "Token Update Code: $code")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -91,7 +139,6 @@ class Page7Activity : AppCompatActivity() {
                 val json = JSONObject(response)
                 if (json.optBoolean("success")) {
                     val user = json.getJSONObject("user")
-                    // Use "profile_picture" to match your DB column
                     val pfpString = if (user.isNull("profile_picture")) "" else user.optString("profile_picture")
 
                     if (pfpString.isNotEmpty()) {
