@@ -21,14 +21,14 @@ import java.net.URL
 
 class ResultPageActivity : AppCompatActivity() {
 
-    // Use the existing Pin class for this
+
     private val pinList = ArrayList<Pin>()
     private lateinit var adapter: PinResultAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        // Ensure this matches your XML file name
+
         setContentView(R.layout.activity_result_page)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
