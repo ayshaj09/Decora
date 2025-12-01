@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.decora.com.example.decora.Config
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -91,7 +90,14 @@ class PinsPage : AppCompatActivity() {
 
                 // Send empty JSON so POST works
                 val writer = OutputStreamWriter(conn.outputStream)
-                writer.write("{}")
+                val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+                val currentUserId = sharedPrefs.getString("user_id", "-1")
+
+                val jsonObject = JSONObject()
+                jsonObject.put("user_id", currentUserId)
+
+                writer.write(jsonObject.toString())
+
                 writer.flush()
                 writer.close()
 

@@ -1,4 +1,4 @@
-package com.example.decora.com.example.decora
+package com.example.decora
 
 object Config {
 
