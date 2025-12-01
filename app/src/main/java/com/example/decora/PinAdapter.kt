@@ -30,10 +30,12 @@ class PinAdapter(private val pins: List<Pin>) :
         val pin = pins[position]
 
         holder.title.text = pin.title
-
-        val bytes = Base64.decode(pin.image, Base64.DEFAULT)
-        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        holder.img.setImageBitmap(bitmap)
+        val base64Image = "data:image/*;base64,${pin.image}"
+        Glide.with(holder.itemView.context)
+            .load(base64Image)
+            .placeholder(R.drawable.placeholder_image)   // Add placeholder
+            .skipMemoryCache(false)
+            .into(holder.img)
 
 
         holder.itemView.setOnClickListener {
