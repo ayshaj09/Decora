@@ -65,6 +65,14 @@
             android:name=".Page6Activity"
             android:exported="false" />
         <activity
+            android:name=".BoardCreate"
+            android:exported="false" />
+
+        <activity android:name=".PinsPage"
+            android:exported="false" />
+
+
+        <activity
             android:name=".Page5Activity"
             android:exported="false" />
         <activity
