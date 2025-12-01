@@ -89,17 +89,17 @@ class PinsPage : AppCompatActivity() {
                 conn.setRequestProperty("Content-Type", "application/json")
 
                 // Send empty JSON so POST works
-                val writer = OutputStreamWriter(conn.outputStream)
                 val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
                 val currentUserId = sharedPrefs.getString("user_id", "-1")
 
-                val jsonObject = JSONObject()
-                jsonObject.put("user_id", currentUserId)
+                val requestJson = JSONObject()
+                requestJson.put("user_id", currentUserId)
 
-                writer.write(jsonObject.toString())
-
+                val writer = OutputStreamWriter(conn.outputStream)
+                writer.write(requestJson.toString())
                 writer.flush()
                 writer.close()
+
 
                 val response = conn.inputStream.bufferedReader().readText()
                 val json = JSONObject(response)

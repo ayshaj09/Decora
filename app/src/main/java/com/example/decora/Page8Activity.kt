@@ -2,11 +2,22 @@ package com.example.decora
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
 
 class Page8Activity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page8)
@@ -14,28 +25,67 @@ class Page8Activity : AppCompatActivity() {
         val mainImage = findViewById<ImageView>(R.id.firstimage)
         val titleText = findViewById<TextView>(R.id.titleText)
         val usernameText = findViewById<TextView>(R.id.username)
-        val profilePic =
-            findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.profilePic)
+        val profilePic = findViewById<CircleImageView>(R.id.profilePic)
 
-        val title = intent.getStringExtra("pinTitle")
-        val imageBase64 = intent.getStringExtra("pinImageBase64")
-        val username = intent.getStringExtra("username")
-        val pfpBase64 = intent.getStringExtra("userPfpBase64")
+        val pinId = intent.getIntExtra("pinId", -1)
+        if (pinId == -1) return
 
-        titleText.text = title ?: ""
+        // Fetch the full pin details from backend
+        lifecycleScope.launch(Dispatchers.IO) {
 
-        usernameText.text = username ?: ""
+            try {
+                val url = URL(Config.BASE_URL + "get_single_pin.php")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+                conn.setRequestProperty("Content-Type", "application/json")
 
+                // Send { "pin_id" : X }
+                val json = JSONObject()
+                json.put("pin_id", pinId)
 
-        if (!imageBase64.isNullOrEmpty()) {
-            val bytes = android.util.Base64.decode(imageBase64, android.util.Base64.DEFAULT)
-            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-            mainImage.setImageBitmap(bitmap)
-        }
-        if (!pfpBase64.isNullOrEmpty()) {
-            val bytes = android.util.Base64.decode(pfpBase64, android.util.Base64.DEFAULT)
-            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-            profilePic.setImageBitmap(bitmap)
+                val writer = OutputStreamWriter(conn.outputStream)
+                writer.write(json.toString())
+                writer.flush()
+                writer.close()
+
+                val response = conn.inputStream.bufferedReader().readText()
+                val obj = JSONObject(response)
+
+                if (!obj.getBoolean("success")) return@launch
+
+                val pin = obj.getJSONObject("pin")
+
+                val title = pin.getString("title")
+                val username = pin.getString("username")
+                val imageBase64 = pin.getString("image")
+                val pfpBase64 = pin.optString("user_pfp", "")
+
+                // Update UI
+                withContext(Dispatchers.Main) {
+                    titleText.text = title
+                    usernameText.text = username
+
+                    // Decode main pin image
+                    if (imageBase64.isNotEmpty()) {
+                        val bytes = Base64.decode(imageBase64, Base64.DEFAULT)
+                        mainImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
+                    }
+
+                    // Decode user profile picture
+                    if (pfpBase64.isNotEmpty()) {
+                        val clean = if (pfpBase64.contains(",")) {
+                            pfpBase64.split(",")[1]
+                        } else pfpBase64
+
+                        val bytes = Base64.decode(clean, Base64.DEFAULT)
+                        profilePic.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
+                    }
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

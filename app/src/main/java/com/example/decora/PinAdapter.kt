@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Base64
+import com.bumptech.glide.Glide
+
 
 class PinAdapter(private val pins: List<Pin>) :
     RecyclerView.Adapter<PinAdapter.PinViewHolder>() {
@@ -39,8 +41,8 @@ class PinAdapter(private val pins: List<Pin>) :
             val intent = Intent(context, Page8Activity::class.java)
 
             intent.putExtra("pinTitle", pin.title)
-            intent.putExtra("pinImageBase64", pin.image)
-            intent.putExtra("username", pin.username)
+            intent.putExtra("pinId", pin.id)
+
             intent.putExtra("userPfpBase64", pin.userPfp)
 
             context.startActivity(intent)

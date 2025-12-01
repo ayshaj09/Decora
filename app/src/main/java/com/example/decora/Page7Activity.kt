@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.messaging.FirebaseMessaging
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +25,17 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class Page7Activity : AppCompatActivity() {
+    private lateinit var homePinsRecycler: RecyclerView
+    private val homePinsList = ArrayList<Pin>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_page7)
+        homePinsRecycler = findViewById(R.id.homePinsRecycler)
+        homePinsRecycler.layoutManager = GridLayoutManager(this, 2)
+        fetchAllPins()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -131,6 +140,50 @@ class Page7Activity : AppCompatActivity() {
                 // Check response (Optional, fire and forget)
                 val code = conn.responseCode
                 Log.d("FCM", "Token Update Code: $code")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    private fun fetchAllPins() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(Config.BASE_URL + "get_all_pins.php")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+                conn.setRequestProperty("Content-Type", "application/json")
+
+                val writer = OutputStreamWriter(conn.outputStream)
+                writer.write("{}")
+                writer.flush()
+                writer.close()
+
+                val response = conn.inputStream.bufferedReader().readText()
+                val json = JSONObject(response)
+
+                if (json.getBoolean("success")) {
+                    val pinsArray = json.getJSONArray("pins")
+                    homePinsList.clear()
+
+                    for (i in 0 until pinsArray.length()) {
+                        val obj = pinsArray.getJSONObject(i)
+
+                        homePinsList.add(
+                            Pin(
+                                id = obj.getInt("id"),
+                                title = obj.getString("title"),
+                                image = obj.getString("image"),
+                                username = obj.getString("username"),
+                                userPfp = obj.optString("user_pfp", "")
+                            )
+                        )
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        homePinsRecycler.adapter = PinAdapter(homePinsList)
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
