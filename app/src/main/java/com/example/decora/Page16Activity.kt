@@ -11,10 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -22,6 +25,8 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 class Page16Activity : AppCompatActivity() {
+    private lateinit var pinsRecycler: RecyclerView
+    private val pinsList = ArrayList<Pin>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page16)
@@ -71,6 +76,64 @@ class Page16Activity : AppCompatActivity() {
         loadCurrentUserProfile(pfp)
         val pfp2=findViewById<CircleImageView>(R.id.pfp)
         loadCurrentUserProfile(pfp2)
+        pinsRecycler = findViewById(R.id.pinsRecycler)
+        pinsRecycler.layoutManager = GridLayoutManager(this, 2)
+
+
+        fetchPins()
+    }
+    private fun fetchPins() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(Config.BASE_URL + "get_pins.php")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+                conn.setRequestProperty("Content-Type", "application/json")
+
+                // Send empty JSON so POST works
+                val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+                val currentUserId = sharedPrefs.getString("user_id", "-1")
+
+                val requestJson = JSONObject()
+                requestJson.put("user_id", currentUserId)
+
+                val writer = OutputStreamWriter(conn.outputStream)
+                writer.write(requestJson.toString())
+                writer.flush()
+                writer.close()
+
+
+                val response = conn.inputStream.bufferedReader().readText()
+                val json = JSONObject(response)
+
+                if (json.getBoolean("success")) {
+                    val pinsArray: JSONArray = json.getJSONArray("pins")
+                    pinsList.clear()
+
+                    for (i in 0 until pinsArray.length()) {
+                        val obj = pinsArray.getJSONObject(i)
+
+                        pinsList.add(
+                            Pin(
+                                id = obj.getInt("id"),
+                                title = obj.getString("title"),
+                                image = obj.getString("image"),
+                                username = obj.optString("username", "Unknown"),
+                                userPfp = obj.optString("user_pfp", "")
+                            )
+                        )
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        pinsRecycler.adapter = PinAdapter(pinsList)
+                    }
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
     private fun loadCurrentUserProfile(targetImageView: ImageView) {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)

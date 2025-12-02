@@ -192,7 +192,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/furniture3"
-                android:src="@drawable/p3" />
+                android:src="@drawable/p2" />
 
 
 
@@ -200,7 +200,7 @@
                 android:id="@+id/furniture5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/p4"
+                android:src="@drawable/furniture2"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/furniture3"

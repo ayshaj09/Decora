@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +24,8 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 class Page15Activity : AppCompatActivity() {
+    private lateinit var rvBoards: RecyclerView
+    private var currentUserId: Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page15)
@@ -61,7 +65,7 @@ class Page15Activity : AppCompatActivity() {
         }
 
         val edited=findViewById<TextView>(R.id.edit)
-        created.setOnClickListener {
+        edited.setOnClickListener {
             val intent= Intent(this, Page17Activity::class.java)
             startActivity(intent)
 
@@ -71,7 +75,58 @@ class Page15Activity : AppCompatActivity() {
         val pfp2=findViewById<CircleImageView>(R.id.pfp)
         loadCurrentUserProfile(pfp2)
 
+        val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
+        rvBoards = findViewById(R.id.rvBoards)
+        rvBoards.layoutManager = GridLayoutManager(this, 2)
 
+    }
+    override fun onResume() {
+        super.onResume()
+        loadBoards()
+    }
+    private fun loadBoards() {
+        val urlString = Config.BASE_URL + "get_board.php"
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(urlString)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+
+                val jsonParam = JSONObject()
+                jsonParam.put("user_id", currentUserId)
+
+                val os = OutputStreamWriter(conn.outputStream)
+                os.write(jsonParam.toString())
+                os.flush()
+                os.close()
+
+                val reader = BufferedReader(InputStreamReader(conn.inputStream))
+                val response = reader.readText()
+                val json = JSONObject(response)
+
+                if (json.optBoolean("success")) {
+                    val jsonArray = json.getJSONArray("boards")
+                    val boardsList = ArrayList<Board>()
+
+                    for (i in 0 until jsonArray.length()) {
+                        val obj = jsonArray.getJSONObject(i)
+                        boardsList.add(Board(
+                            obj.getInt("id"),
+                            obj.getString("title"),
+                            "0 pins"
+                        ))
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        rvBoards.adapter = BoardAdapter(this@Page15Activity, boardsList)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
     private fun loadCurrentUserProfile(targetImageView: ImageView) {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
