@@ -22,6 +22,8 @@
 
             <ImageView
                 android:layout_width="120dp"
+                android:id="@+id/ivLarge"
+                android:scaleType="centerCrop"
                 android:layout_height="120dp"
                 android:src="@color/grey"/>
 
@@ -33,12 +35,16 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:id="@+id/ivSmallTop"
+                    android:scaleType="centerCrop"
                     android:src="@color/grey"/>
 
                 <ImageView
                     android:layout_width="60dp"
+                    android:id="@+id/ivSmallBottom"
                     android:layout_height="58.5dp"
                     android:layout_marginTop="1dp"
+                    android:scaleType="centerCrop"
                     android:src="@color/grey"/>
 
 

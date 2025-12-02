@@ -106,16 +106,30 @@ class Page15Activity : AppCompatActivity() {
                 val response = reader.readText()
                 val json = JSONObject(response)
 
+
                 if (json.optBoolean("success")) {
                     val jsonArray = json.getJSONArray("boards")
                     val boardsList = ArrayList<Board>()
 
                     for (i in 0 until jsonArray.length()) {
                         val obj = jsonArray.getJSONObject(i)
+
+                        // Parse Preview Images Array
+                        val previewList = ArrayList<String>()
+                        val imagesArray = obj.optJSONArray("preview_images")
+                        if (imagesArray != null) {
+                            for (j in 0 until imagesArray.length()) {
+                                previewList.add(imagesArray.getString(j))
+                            }
+                        }
+
+                        val count = obj.optInt("pin_count", 0)
+
                         boardsList.add(Board(
                             obj.getInt("id"),
                             obj.getString("title"),
-                            "0 pins"
+                            "$count pins",
+                            previewList // Pass the list of images
                         ))
                     }
 

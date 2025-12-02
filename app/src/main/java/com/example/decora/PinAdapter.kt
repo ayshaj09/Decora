@@ -49,6 +49,14 @@ class PinAdapter(private val pins: List<Pin>) :
 
             context.startActivity(intent)
         }
+
+        holder.itemView.setOnLongClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, Page9Activity::class.java)
+            intent.putExtra("pin_id_to_save", pin.id) // Pass the ID we want to save
+            context.startActivity(intent)
+            true // Return true to indicate the click was handled
+        }
     }
 
     override fun getItemCount() = pins.size

@@ -8,14 +8,13 @@
     android:background="@color/darkbrown"
     tools:context=".Page14Activity">
 
-
+    <!-- Header -->
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="20dp"
         android:id="@+id/searching"
         android:layout_height="wrap_content">
-
 
         <ImageView
             android:layout_width="20dp"
@@ -46,194 +45,49 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:backgroundTint="@color/white"/>
-
-
-
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_centerHorizontal="true"
-        android:id="@+id/scrollView"
+    <!-- Board Details & Pins -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/searching"
-        android:layout_above="@+id/footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:layout_above="@id/footer"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- Title -->
+        <TextView
+            android:id="@+id/boardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Loading..."
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="26sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dining Tables"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="40dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="26dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="6 pins"
-                android:layout_marginLeft="25dp"
-                android:textColor="@color/grey"
-                android:textSize="12dp"/>
-
-
-        <RelativeLayout
-            android:id="@+id/furnitureLayout"
+        <!-- Count -->
+        <TextView
+            android:id="@+id/boardPinCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:text="0 pins"
+            android:layout_marginLeft="25dp"
+            android:textColor="@color/grey"
+            android:textSize="12sp"/>
 
+        <!-- DYNAMIC PINS LIST -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBoardPins"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:paddingHorizontal="5dp"/>
 
+    </LinearLayout>
 
-
-            <ImageView
-                android:id="@+id/furniture1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d1" />
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_below="@id/furniture1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="9+ extravagant dining rooms"
-                android:layout_marginLeft="4dp"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/furniture1"
-                android:layout_alignEnd="@id/furniture1"
-                android:layout_marginLeft="13dp"
-                android:layout_marginEnd="-13dp"
-                android:layout_toRightOf="@id/text1"
-                android:src="@drawable/sar" />
-
-
-            <ImageView
-                android:id="@+id/furniture2"
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/furniture1"
-                android:src="@drawable/d2" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/furniture2"
-                android:layout_marginLeft="-22dp"
-                android:layout_toRightOf="@id/furniture2"
-                android:src="@drawable/sar" />
-
-
-            <ImageView
-                android:id="@+id/furniture3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d3"
-                android:layout_below="@id/text1"
-                android:layout_marginTop="7dp" />
-
-            <ImageView
-                android:id="@+id/icon3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/furniture3"
-                android:layout_marginStart="-25dp"
-                android:layout_toEndOf="@id/furniture3"
-                android:src="@drawable/sar" />
-
-
-            <ImageView
-                android:id="@+id/furniture4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/furniture2"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="24dp"
-                android:layout_toRightOf="@id/furniture3"
-                android:src="@drawable/d4" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/furniture4"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="-20dp"
-                android:layout_toRightOf="@id/furniture3"
-                android:text="wooden tables"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/furniture4"
-                android:layout_alignEnd="@id/furniture4"
-                android:src="@drawable/sar" />
-
-
-            <ImageView
-                android:id="@+id/furniture5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d5"
-                android:layout_below="@id/icon3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="wayfare"
-                android:textSize="12sp"
-                android:layout_below="@id/furniture5"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/furniture5"
-                android:layout_alignEnd="@id/furniture1"
-                android:layout_marginLeft="13dp"
-                android:layout_marginEnd="-13dp"
-                android:layout_toRightOf="@id/text1"
-                android:src="@drawable/sar" />
-
-
-            <ImageView
-                android:id="@+id/furniture6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/d4"
-                android:layout_below="@id/furniture4"
-                android:layout_toRightOf="@id/furniture3"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="30dp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/sar"
-                android:layout_alignEnd="@id/furniture6"
-                android:layout_below="@id/furniture6" />
-
-
-        </RelativeLayout>
-        </LinearLayout>
-
-    </ScrollView>
-
-
+    <!-- Footer -->
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

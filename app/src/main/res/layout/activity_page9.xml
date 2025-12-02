@@ -8,6 +8,7 @@
     android:background="@color/darkbrown"
     tools:context=".Page9Activity">
 
+    <!-- Header -->
     <RelativeLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_centerInParent="true"
             android:text="Save to"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/white" />
 
         <ImageView
@@ -34,249 +35,25 @@
             android:clickable="true" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/srch"
-        android:layout_width="350dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/top"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/textbox2">
-
-        <ImageView
-            android:id="@+id/searchIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/search"
-            app:tint="@color/white" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="Search"
-            android:textColorHint="@color/grey"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:singleLine="true" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/firstsearch"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/srch"
-        android:layout_marginHorizontal="25dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/r1"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            >
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dining Tables"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                android:textSize="18dp"/>
-
-
-
-
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/texty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Boards"
-        android:layout_below="@id/firstsearch"
+        android:layout_below="@id/top"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="25dp"
-        android:textColor="#D4D0C8"
+        android:textColor="#D4D0C8" />
 
-        />
-
-    <LinearLayout
-        android:id="@+id/secondsearch"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+    <!-- DYNAMIC BOARD LIST -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBoardsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/texty"
-        android:layout_marginHorizontal="25dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/r2"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            >
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bed rooms"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                android:textSize="18dp"/>
-
-
-
-
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/thirdsearch"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/secondsearch"
-        android:layout_marginHorizontal="25dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/r3"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            >
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sofa"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                android:textSize="18dp"/>
-
-
-
-
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/fourthsearch"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/thirdsearch"
-        android:layout_marginHorizontal="25dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/r4"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            >
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Book Shelves"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                android:textSize="18dp"/>
-
-
-
-
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/fifthsearch"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/fourthsearch"
-        android:layout_marginHorizontal="25dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/r5"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
-            >
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Decor"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                android:textSize="18dp"/>
-
-
-
-
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="25dp"
+        android:paddingBottom="20dp"/>
 
 </RelativeLayout>
