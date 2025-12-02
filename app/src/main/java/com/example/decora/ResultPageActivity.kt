@@ -36,6 +36,8 @@ class ResultPageActivity : AppCompatActivity() {
             insets
         }
 
+
+
         val searchQuery = intent.getStringExtra("EXTRA_QUERY") ?: ""
 
         val searchInput = findViewById<EditText>(R.id.searchInput)
@@ -45,6 +47,7 @@ class ResultPageActivity : AppCompatActivity() {
 
         // Staggered Grid for Pinterest look
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         recyclerView.layoutManager = layoutManager
 
         adapter = PinResultAdapter(pinList)

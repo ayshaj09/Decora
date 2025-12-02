@@ -7,7 +7,7 @@
     android:gravity="center_vertical">
 
     <ImageView
-        android:layout_width="50dp"
+        android:layout_width="55dp"
         android:layout_height="40dp"
         android:background="@drawable/search"
         android:backgroundTint="@color/grey"

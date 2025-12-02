@@ -23,6 +23,7 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 class Page7Activity : AppCompatActivity() {
     private lateinit var homePinsRecycler: RecyclerView
@@ -47,6 +48,10 @@ class Page7Activity : AppCompatActivity() {
 
             insets
         }
+
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+        homePinsRecycler.layoutManager = layoutManager
 
         val srch = findViewById<ImageView>(R.id.search)
         srch.setOnClickListener {
@@ -101,7 +106,11 @@ class Page7Activity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+        // Refresh pins when returning from uploading/viewing
+        fetchAllPins()
+    }
     private fun updateFcmToken() {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
