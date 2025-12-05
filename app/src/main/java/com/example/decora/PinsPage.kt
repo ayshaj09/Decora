@@ -31,6 +31,7 @@ class PinsPage : AppCompatActivity() {
 
     private lateinit var pinsRecycler: RecyclerView
     private val pinsList = ArrayList<Pin>()
+    private lateinit var adapter: PinAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,7 @@ class PinsPage : AppCompatActivity() {
             insets
         }
 
+        // Load user PFPs
         val pfp2 = findViewById<CircleImageView>(R.id.prof)
         loadCurrentUserProfile(pfp2)
 
@@ -67,19 +69,44 @@ class PinsPage : AppCompatActivity() {
             startActivity(Intent(this, Page7Activity::class.java))
             finish()
         }
-        val board=findViewById<TextView>(R.id.boards)
+
+        val board = findViewById<TextView>(R.id.boards)
         board.setOnClickListener {
             startActivity(Intent(this, Page13Activity::class.java))
             finish()
         }
 
+        // ---------------------------
+        // SETUP RECYCLER VIEW
+        // ---------------------------
         pinsRecycler = findViewById(R.id.pinsRecycler)
+
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         pinsRecycler.layoutManager = layoutManager
 
+        // CREATE ADAPTER ONE TIME
+        adapter = PinAdapter(pinsList.toMutableList())
+        pinsRecycler.adapter = adapter
 
+        // ITEM CLICK HANDLER
+        adapter.setOnItemClickListener { pin ->
+            val intent = Intent(this, Page8Activity::class.java)
+            intent.putExtra("pinId", pin.id)
+            intent.putExtra("opened_from_pins_page", true)
+            startActivityForResult(intent, 100)
+        }
+
+        // LOAD DATA
         fetchPins()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            fetchPins()   // refresh pins after deletion
+        }
     }
 
     private fun fetchPins() {
@@ -126,8 +153,9 @@ class PinsPage : AppCompatActivity() {
                     }
 
                     withContext(Dispatchers.Main) {
-                        pinsRecycler.adapter = PinAdapter(pinsList)
+                        adapter.updateData(pinsList)
                     }
+
                 }
 
             } catch (e: Exception) {

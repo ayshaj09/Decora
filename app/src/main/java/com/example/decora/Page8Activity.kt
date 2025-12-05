@@ -55,6 +55,10 @@ class Page8Activity : AppCompatActivity() {
 
         val back = findViewById<ImageView>(R.id.backBtn)
         val saveBtn = findViewById<TextView>(R.id.saveButton)
+        val deleteBtn = findViewById<TextView>(R.id.deleteButton)
+        val openedFromPins = intent.getBooleanExtra("opened_from_pins_page", false)
+
+        deleteBtn.visibility = if (openedFromPins) View.VISIBLE else View.GONE
 
         // --- LAYOUT FIX: Use GridLayoutManager ---
         morePinsRecycler = findViewById(R.id.morePinsRecycler)
@@ -74,6 +78,38 @@ class Page8Activity : AppCompatActivity() {
             val intent = Intent(this, Page9Activity::class.java)
             intent.putExtra("pin_id_to_save", pinId)
             startActivity(intent)
+        }
+        deleteBtn.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val url = URL(Config.BASE_URL + "delete_pin.php")
+                    val conn = url.openConnection() as HttpURLConnection
+                    conn.requestMethod = "POST"
+                    conn.doOutput = true
+                    conn.setRequestProperty("Content-Type", "application/json")
+
+                    val json = JSONObject()
+                    json.put("pin_id", pinId)
+
+                    val writer = OutputStreamWriter(conn.outputStream)
+                    writer.write(json.toString())
+                    writer.flush()
+                    writer.close()
+
+                    val response = conn.inputStream.bufferedReader().readText()
+                    val obj = JSONObject(response)
+
+                    if (obj.getBoolean("success")) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@Page8Activity, "Pin deleted", Toast.LENGTH_SHORT).show()
+                            setResult(RESULT_OK)
+                            finish() // Close Page8 and return to PinsPage
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
 
         commentIcon.setOnClickListener {

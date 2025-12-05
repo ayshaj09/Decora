@@ -15,9 +15,15 @@ import com.bumptech.glide.request.target.Target
 
 // Constructor accepts the list AND the optional delete action
 class PinAdapter(
-    private val pins: List<Pin>,
+    private val pins: MutableList<Pin>,
+
     private val onLongClick: ((Pin) -> Unit)? = null
 ) : RecyclerView.Adapter<PinAdapter.PinViewHolder>() {
+    private var onItemClick: ((Pin) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Pin) -> Unit) {
+        onItemClick = listener
+    }
 
     class PinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img: ImageView = itemView.findViewById(R.id.pinImage)
@@ -65,17 +71,17 @@ class PinAdapter(
 
         // Normal Click: View Details
         holder.itemView.setOnClickListener {
-            val context = holder.itemView.context
-            val intent = Intent(context, Page8Activity::class.java)
-
-            intent.putExtra("pinId", pin.id)
-            intent.putExtra("pinTitle", pin.title)
-            intent.putExtra("pinImage", pin.image) // Sending Base64 string
-            intent.putExtra("pinUser", pin.username)
-            intent.putExtra("userPfp", pin.userPfp)
-
-            context.startActivity(intent)
+            if (onItemClick != null) {
+                onItemClick!!.invoke(pin)
+            } else {
+                // Default click behavior for home / explore pages
+                val context = holder.itemView.context
+                val intent = Intent(context, Page8Activity::class.java)
+                intent.putExtra("pinId", pin.id)
+                context.startActivity(intent)
+            }
         }
+
 
         // Long Click: Custom Action (Delete) or Default (Save)
         holder.itemView.setOnLongClickListener {
@@ -92,6 +98,12 @@ class PinAdapter(
             true
         }
     }
+    fun updateData(newList: List<Pin>) {
+        pins.clear()
+        pins.addAll(newList)
+        notifyItemRangeChanged(0, pins.size)
+    }
+
 
     override fun getItemCount() = pins.size
 }
