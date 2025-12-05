@@ -65,6 +65,20 @@ class Page8Activity : AppCompatActivity() {
             finish()
             return
         }
+// ---------------- OFFLINE MODE ACTIVATION ----------------
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+
+            // Load main pin from local database
+            loadPinOffline(pinId)
+
+            // Load suggestions from local database
+            loadMorePinsOffline(pinId)
+
+            Toast.makeText(this, "Loaded offline data", Toast.LENGTH_SHORT).show()
+
+            return  // STOP here so it does NOT attempt online fetch
+        }
+// -----------------------------------------------------------
 
         // --- NEW: Grab Description passed from previous page ---
         currentPinDesc = intent.getStringExtra("pinDesc") ?: ""
@@ -307,6 +321,58 @@ class Page8Activity : AppCompatActivity() {
                 }
             } catch (e: Exception) { e.printStackTrace() }
         }
+    }
+    private fun loadPinOffline(pinId: Int) {
+        val db = DatabaseHelper(this)
+        val pins = db.getPins()
+
+        val pin = pins.find { it.id == pinId }
+        if (pin == null) {
+            Toast.makeText(this, "Pin not available offline", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // UI elements
+        val mainImage = findViewById<ImageView>(R.id.firstimage)
+        val titleText = findViewById<TextView>(R.id.titleText)
+        val usernameText = findViewById<TextView>(R.id.username)
+        val profilePic = findViewById<CircleImageView>(R.id.profilePic)
+
+        titleText.text = pin.title
+        usernameText.text = pin.username
+
+        // Decode main image
+        try {
+            val clean = if (pin.image.contains(",")) pin.image.split(",")[1] else pin.image
+            val bytes = Base64.decode(clean, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            mainImage.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            mainImage.setImageResource(R.drawable.rectangle11)
+        }
+
+        // Decode profile picture
+        if (pin.userPfp.isNotEmpty()) {
+            try {
+                val clean = if (pin.userPfp.contains(",")) pin.userPfp.split(",")[1] else pin.userPfp
+                val bytes = Base64.decode(clean, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                profilePic.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                profilePic.setImageResource(R.drawable.defaultpfp)
+            }
+        }
+    }
+    private fun loadMorePinsOffline(currentPinId: Int) {
+        val db = DatabaseHelper(this)
+        val pins = db.getPins().filter { it.id != currentPinId }
+
+        if (pins.isEmpty()) return
+
+        val shuffled = pins.shuffled()
+        val limited = if (shuffled.size > 4) shuffled.subList(0, 4) else shuffled
+
+        morePinsRecycler.adapter = PinAdapter(limited.toMutableList())
     }
 
     private fun loadLikes(pinId: Int, userId: Int, heartIcon: ImageView, likeCount: TextView) {
