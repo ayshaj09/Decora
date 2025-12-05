@@ -16,6 +16,7 @@
     <uses-feature android:name="android.hardware.camera.any" />
 
     <application
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,6 +26,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Decora"
         android:usesCleartextTraffic="true">
+        <!-- REQUIRED for WorkManager to function -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+
+        <service
+            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false"
+            tools:replace="android:exported" />
+
+
         <activity
             android:name=".ResultPageActivity"
             android:exported="false" />

@@ -68,7 +68,36 @@ class Page21Activity : AppCompatActivity() {
             }
 
 
+            // OFFLINE CHECK
+            if (!NetworkUtils.isNetworkAvailable(this)) {
+
+                val json = JSONObject().apply {
+                    put("title", title)
+                    put("description", desc)
+                    put("link", link)
+                    put("image", encodedImage)
+                    put("user_id", currentUserId)
+                }
+
+                OfflineQueueManager.addToQueue(
+                    this,
+                    "upload_pin",
+                    json.toString()
+                )
+
+                Toast.makeText(
+                    this,
+                    "Saved offline. Will upload automatically when network is available.",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                finish()
+                return@setOnClickListener
+            }
+
+// If online → upload normally
             uploadPin(encodedImage, title, desc, link, currentUserId)
+
         }
     }
 

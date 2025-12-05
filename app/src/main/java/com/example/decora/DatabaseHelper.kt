@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
 
 class DatabaseHelper(context: Context) :
-    SQLiteOpenHelper(context, "pins_db", null, 2) {
-
+    SQLiteOpenHelper(context, "pins_db", null, 3) {
     override fun onCreate(db: SQLiteDatabase) {
+        // Existing table
         db.execSQL(
             "CREATE TABLE pins (" +
                     "id INTEGER PRIMARY KEY, " +
@@ -17,10 +17,26 @@ class DatabaseHelper(context: Context) :
                     "username TEXT, " +
                     "userPfp TEXT)"
         )
+
+        // NEW offline_queue table
+        db.execSQL(
+            """
+        CREATE TABLE offline_queue (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            action_type TEXT,
+            action_data TEXT,
+            status TEXT DEFAULT 'pending',
+            retry_count INTEGER DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS pins")
+        db.execSQL("DROP TABLE IF EXISTS offline_queue")
         onCreate(db)
     }
 
