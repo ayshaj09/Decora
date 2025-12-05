@@ -29,6 +29,9 @@
             android:name=".ResultPageActivity"
             android:exported="false" />
         <activity
+            android:name=".SharePinActivity"
+            android:exported="false" />
+        <activity
             android:name=".OtherUserProfile"
             android:exported="false" />
         <activity

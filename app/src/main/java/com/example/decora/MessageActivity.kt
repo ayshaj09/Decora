@@ -1,6 +1,7 @@
 package com.example.decora
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -111,7 +112,13 @@ class MessageActivity : AppCompatActivity() {
                         if (userList.isEmpty()) {
                             Toast.makeText(this@MessageActivity, "No other users found", Toast.LENGTH_SHORT).show()
                         }
-                        rvUsers.adapter = UsersAdapter(this@MessageActivity, userList)
+                        rvUsers.adapter = UsersAdapter(this@MessageActivity, userList) { selectedUser ->
+                            // This code runs when an item is clicked: Open Chat (Page 19)
+                            val intent = Intent(this@MessageActivity, Page19Activity::class.java)
+                            intent.putExtra("partner_id", selectedUser.id)
+                            intent.putExtra("partner_name", selectedUser.username)
+                            startActivity(intent)
+                        }
                     }
                 } else {
                     // NEW: Show error message if success is false
