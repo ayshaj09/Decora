@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -45,7 +46,6 @@ class Page14Activity : AppCompatActivity() {
             insets
         }
 
-        // 1. Get Board Data
         boardId = intent.getIntExtra("board_id", -1)
         val tempTitle = intent.getStringExtra("board_name") ?: "Board"
 
@@ -55,25 +55,21 @@ class Page14Activity : AppCompatActivity() {
             return
         }
 
-        // 2. Init Views
         tvTitle = findViewById(R.id.boardTitle)
         tvCount = findViewById(R.id.boardPinCount)
         rvBoardPins = findViewById(R.id.rvBoardPins)
 
         tvTitle.text = tempTitle
 
-        // Setup RecyclerView
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         rvBoardPins.layoutManager = layoutManager
 
-        // Navigation
         findViewById<ImageView>(R.id.back).setOnClickListener { finish() }
         val pfpNav = findViewById<CircleImageView>(R.id.prof)
         loadCurrentUserProfile(pfpNav)
     }
 
-    // --- FIX: Move fetching to onResume so it refreshes automatically ---
     override fun onResume() {
         super.onResume()
         if (boardId != -1) {
@@ -81,11 +77,22 @@ class Page14Activity : AppCompatActivity() {
             fetchBoardPins()
         }
     }
-    // -------------------------------------------------------------------
 
-    private fun fetchBoardDetails() {
-        val urlString = Config.BASE_URL + "get_board_details.php"
+    // --- DELETE LOGIC ---
 
+    private fun showDeleteDialog(pin: Pin) {
+        AlertDialog.Builder(this)
+            .setTitle("Remove Pin")
+            .setMessage("Remove this pin from the board?")
+            .setPositiveButton("Remove") { _, _ ->
+                removePinFromBoard(pin.id)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun removePinFromBoard(pinId: Int) {
+        val urlString = Config.BASE_URL + "remove_board_pin.php"
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(urlString)
@@ -95,6 +102,7 @@ class Page14Activity : AppCompatActivity() {
 
                 val jsonParam = JSONObject()
                 jsonParam.put("board_id", boardId)
+                jsonParam.put("pin_id", pinId)
 
                 val os = OutputStreamWriter(conn.outputStream)
                 os.write(jsonParam.toString())
@@ -107,46 +115,73 @@ class Page14Activity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (json.optBoolean("success")) {
-                        val title = json.optString("title")
-                        val count = json.optInt("pin_count")
-
-                        tvTitle.text = title
-                        // FIX: Ensure this string formatting matches what you expect
-                        tvCount.text = "$count pins"
+                        Toast.makeText(this@Page14Activity, "Pin Removed", Toast.LENGTH_SHORT).show()
+                        // Refresh to update UI
+                        fetchBoardDetails()
+                        fetchBoardPins()
+                    } else {
+                        Toast.makeText(this@Page14Activity, "Failed: ${json.optString("message")}", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@Page14Activity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun fetchBoardPins() {
-        val urlString = Config.BASE_URL + "get_board_pins.php"
+    // --- FETCHING LOGIC ---
 
+    private fun fetchBoardDetails() {
+        val urlString = Config.BASE_URL + "get_board_details.php"
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(urlString)
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
                 conn.doOutput = true
-
                 val jsonParam = JSONObject()
                 jsonParam.put("board_id", boardId)
-
                 val os = OutputStreamWriter(conn.outputStream)
                 os.write(jsonParam.toString())
                 os.flush()
                 os.close()
-
                 val reader = BufferedReader(InputStreamReader(conn.inputStream))
                 val response = reader.readText()
                 val json = JSONObject(response)
+                withContext(Dispatchers.Main) {
+                    if (json.optBoolean("success")) {
+                        val title = json.optString("title")
+                        val count = json.optInt("pin_count")
+                        tvTitle.text = title
+                        tvCount.text = "$count pins"
+                    }
+                }
+            } catch (e: Exception) { e.printStackTrace() }
+        }
+    }
 
+    private fun fetchBoardPins() {
+        val urlString = Config.BASE_URL + "get_board_pins.php"
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(urlString)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+                val jsonParam = JSONObject()
+                jsonParam.put("board_id", boardId)
+                val os = OutputStreamWriter(conn.outputStream)
+                os.write(jsonParam.toString())
+                os.flush()
+                os.close()
+                val reader = BufferedReader(InputStreamReader(conn.inputStream))
+                val response = reader.readText()
+                val json = JSONObject(response)
                 if (json.optBoolean("success")) {
                     val pinsArray = json.getJSONArray("pins")
                     val pinsList = ArrayList<Pin>()
-
                     for (i in 0 until pinsArray.length()) {
                         val obj = pinsArray.getJSONObject(i)
                         pinsList.add(
@@ -154,19 +189,19 @@ class Page14Activity : AppCompatActivity() {
                                 id = obj.getInt("id"),
                                 title = obj.getString("title"),
                                 image = obj.getString("image"),
-                                username = obj.getString("username"),
+                                username = obj.optString("username", "User"),
                                 userPfp = obj.optString("user_pfp", "")
                             )
                         )
                     }
-
                     withContext(Dispatchers.Main) {
-                        rvBoardPins.adapter = PinAdapter(pinsList)
+                        // Pass the delete logic here!
+                        rvBoardPins.adapter = PinAdapter(pinsList) { pin ->
+                            showDeleteDialog(pin)
+                        }
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            } catch (e: Exception) { e.printStackTrace() }
         }
     }
 
@@ -174,9 +209,7 @@ class Page14Activity : AppCompatActivity() {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
         if (currentUserId == -1) return
-
         val urlString = Config.BASE_URL + "get_user_profile.php"
-
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(urlString)

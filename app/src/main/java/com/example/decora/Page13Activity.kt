@@ -59,6 +59,10 @@ class Page13Activity : AppCompatActivity() {
             startActivity(intent)
         }
         // -----------------------------
+    pfpTop.setOnClickListener {
+        startActivity(Intent(this, Page15Activity::class.java))
+        finish()
+    }
 
         findViewById<ImageView>(R.id.home).setOnClickListener {
             startActivity(Intent(this, Page7Activity::class.java))
