@@ -75,6 +75,15 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="14dp" />
 
+            <ImageView
+                android:id="@+id/sendTo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/share"
+                app:tint="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="14dp" />
+
             <Space
                 android:layout_width="0dp"
                 android:layout_height="0dp"

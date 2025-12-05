@@ -1,37 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <!-- RECEIVED MESSAGE (Left Side) -->
-    <TextView
-        android:id="@+id/tvReceived"
+    <!-- RECEIVED MESSAGE (Left) -->
+    <LinearLayout
+        android:id="@+id/layoutReceived"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:orientation="vertical"
         android:background="@drawable/textbox2"
         android:backgroundTint="#4E4E4E"
-        android:padding="12dp"
-        android:text="Hello!"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:visibility="visible"
-        android:maxWidth="280dp"/>
+        android:padding="4dp"
+        android:visibility="visible">
 
-    <!-- SENT MESSAGE (Right Side) -->
-    <TextView
-        android:id="@+id/tvSent"
+        <!-- Normal Text -->
+        <TextView
+            android:id="@+id/tvReceived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Hello!"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:maxWidth="260dp"/>
+
+        <!-- PIN CARD (Hidden by default) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardReceived"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="4dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/darkbrown">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imgReceivedPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rectangle11"/>
+                <TextView
+                    android:id="@+id/titleReceivedPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Pin Title"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <!-- SENT MESSAGE (Right) -->
+    <LinearLayout
+        android:id="@+id/layoutSent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:orientation="vertical"
         android:background="@drawable/textbox2"
         android:backgroundTint="#8D6E63"
-        android:padding="12dp"
-        android:text="Hi there!"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:visibility="gone"
-        android:maxWidth="280dp"/>
+        android:padding="4dp"
+        android:visibility="gone">
+
+        <!-- Normal Text -->
+        <TextView
+            android:id="@+id/tvSent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Hi there!"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:maxWidth="260dp"/>
+
+        <!-- PIN CARD (Hidden by default) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSent"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="4dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/darkbrown">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imgSentPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rectangle11"/>
+                <TextView
+                    android:id="@+id/titleSentPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Pin Title"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>
