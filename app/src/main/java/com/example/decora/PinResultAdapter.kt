@@ -1,5 +1,6 @@
 package com.example.decora
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.LayoutInflater
@@ -9,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-// 1. We use the existing "Pin" class here
 class PinResultAdapter(private val pinList: List<Pin>) :
     RecyclerView.Adapter<PinResultAdapter.PinViewHolder>() {
 
@@ -29,18 +29,40 @@ class PinResultAdapter(private val pinList: List<Pin>) :
         holder.title.text = pin.title
 
         // Decode Image
-        // (We access 'pin.image' because your existing class calls it 'image', not 'imageBase64')
         if (pin.image.isNotEmpty()) {
             try {
+                // Handle base64 strings that might have the data prefix
                 val cleanBase64 = if (pin.image.contains(","))
                     pin.image.split(",")[1] else pin.image
 
                 val decodedString = Base64.decode(cleanBase64, Base64.DEFAULT)
                 val bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                holder.image.setImageBitmap(bitmap)
+
+                if (bitmap != null) {
+                    holder.image.setImageBitmap(bitmap)
+                } else {
+                    holder.image.setImageResource(R.drawable.img1) // Fallback if decoding fails
+                }
             } catch (e: Exception) {
-                holder.image.setImageResource(R.drawable.img1) // Fallback
+                holder.image.setImageResource(R.drawable.img1) // Fallback on error
             }
+        } else {
+            holder.image.setImageResource(R.drawable.img1) // Fallback if empty
+        }
+
+        // --- NEW CLICK LOGIC ---
+        holder.itemView.setOnClickListener {
+            // 1. Create intent to go to your partner's Detail Page (Page8Activity)
+            val intent = Intent(holder.itemView.context, Page8Activity::class.java)
+
+            // 2. Pass the ID. Your partner's code specifically looks for "pinId"
+            intent.putExtra("pinId", pin.id)
+
+            // 3. Optional: Hide the delete button since we are searching, not managing our own pins
+            intent.putExtra("opened_from_pins_page", false)
+
+            // 4. Start the activity
+            holder.itemView.context.startActivity(intent)
         }
     }
 
