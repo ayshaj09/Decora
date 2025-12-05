@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,9 +25,11 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+
 class Page16Activity : AppCompatActivity() {
     private lateinit var pinsRecycler: RecyclerView
     private val pinsList = ArrayList<Pin>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page16)
@@ -36,52 +39,56 @@ class Page16Activity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val srch=findViewById<ImageView>(R.id.search)
+
+        // --- Navigation ---
+        val srch = findViewById<ImageView>(R.id.search)
         srch.setOnClickListener {
-            val intent= Intent(this, Page10Activity::class.java)
+            val intent = Intent(this, Page10Activity::class.java)
             startActivity(intent)
             finish()
-
         }
 
-        val msg=findViewById<ImageView>(R.id.comment)
+        val msg = findViewById<ImageView>(R.id.comment)
         msg.setOnClickListener {
-            val intent= Intent(this, Page18Activity::class.java)
+            val intent = Intent(this, Page18Activity::class.java)
             startActivity(intent)
             finish()
-
         }
-        val home=findViewById<ImageView>(R.id.home)
+
+        val home = findViewById<ImageView>(R.id.home)
         home.setOnClickListener {
-            val intent= Intent(this, Page7Activity::class.java)
+            val intent = Intent(this, Page7Activity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val saved=findViewById<TextView>(R.id.svd)
+        val saved = findViewById<TextView>(R.id.svd)
         saved.setOnClickListener {
-            val intent= Intent(this, Page15Activity::class.java)
+            val intent = Intent(this, Page15Activity::class.java)
             startActivity(intent)
             finish()
-
         }
 
-        val edited=findViewById<TextView>(R.id.edit)
+        val edited = findViewById<TextView>(R.id.edit)
         edited.setOnClickListener {
-            val intent= Intent(this, Page17Activity::class.java)
+            val intent = Intent(this, Page17Activity::class.java)
             startActivity(intent)
-
         }
+
+        // --- Profile Loading ---
         val pfp = findViewById<CircleImageView>(R.id.prof)
         loadCurrentUserProfile(pfp)
-        val pfp2=findViewById<CircleImageView>(R.id.pfp)
+
+        val pfp2 = findViewById<CircleImageView>(R.id.pfp)
         loadCurrentUserProfile(pfp2)
+
+        // --- Pins Loading ---
         pinsRecycler = findViewById(R.id.pinsRecycler)
         pinsRecycler.layoutManager = GridLayoutManager(this, 2)
 
-
         fetchPins()
     }
+
     private fun fetchPins() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -91,7 +98,6 @@ class Page16Activity : AppCompatActivity() {
                 conn.doOutput = true
                 conn.setRequestProperty("Content-Type", "application/json")
 
-                // Send empty JSON so POST works
                 val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
                 val currentUserId = sharedPrefs.getString("user_id", "-1")
 
@@ -102,7 +108,6 @@ class Page16Activity : AppCompatActivity() {
                 writer.write(requestJson.toString())
                 writer.flush()
                 writer.close()
-
 
                 val response = conn.inputStream.bufferedReader().readText()
                 val json = JSONObject(response)
@@ -135,6 +140,8 @@ class Page16Activity : AppCompatActivity() {
             }
         }
     }
+
+    // ✅ UPDATED FUNCTION: Loads Name AND Image
     private fun loadCurrentUserProfile(targetImageView: ImageView) {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
@@ -165,20 +172,38 @@ class Page16Activity : AppCompatActivity() {
                 val json = JSONObject(response)
                 if (json.optBoolean("success")) {
                     val user = json.getJSONObject("user")
-                    // Use "profile_picture" to match your DB column
+
+                    // 1. Get the Name
+                    val fullName = user.optString("full_name")
                     val pfpString = if (user.isNull("profile_picture")) "" else user.optString("profile_picture")
 
-                    if (pfpString.isNotEmpty()) {
-                        try {
-                            val cleanBase64 = if (pfpString.contains(",")) pfpString.split(",")[1] else pfpString
-                            val bytes = Base64.decode(cleanBase64, Base64.DEFAULT)
-                            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    withContext(Dispatchers.Main) {
+                        // 2. Update the Name TextView
+                        val nameTv = findViewById<TextView>(R.id.username)
+                        if (nameTv != null) {
+                            nameTv.text = fullName
+                        }
 
-                            withContext(Dispatchers.Main) {
+                        // 3. Update the "Handle" (the small text below name)
+                        // XML Structure: LinearLayout (id=name) -> [ImageView, TextView]
+                        val handleContainer = findViewById<LinearLayout>(R.id.name)
+                        if (handleContainer != null) {
+                            // The text view is at index 1
+                            val handleTv = handleContainer.getChildAt(1) as TextView
+                            handleTv.text = "@${fullName.replace(" ", "").lowercase()}"
+                        }
+
+                        // 4. Update Image
+                        if (pfpString.isNotEmpty()) {
+                            try {
+                                val cleanBase64 = if (pfpString.contains(",")) pfpString.split(",")[1] else pfpString
+                                val bytes = Base64.decode(cleanBase64, Base64.DEFAULT)
+                                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
                                 if (bitmap != null) targetImageView.setImageBitmap(bitmap)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
                         }
                     }
                 }
