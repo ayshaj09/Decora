@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="15dp"
+    android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/boardName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Board Name"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Optional Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3E3E3E"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

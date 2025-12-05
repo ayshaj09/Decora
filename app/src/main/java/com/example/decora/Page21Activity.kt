@@ -73,18 +73,47 @@ class Page21Activity : AppCompatActivity() {
     }
 
     private fun encodeImageToBase64(uri: Uri): String {
-        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val source = ImageDecoder.createSource(contentResolver, uri)
-            ImageDecoder.decodeBitmap(source)
-        } else {
-            MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        try {
+            // 1. Get the original full-size bitmap
+            val originalBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(contentResolver, uri)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            }
+
+            // 2. CALCULATE NEW SIZE (Max width 800px)
+            // This prevents massive 4000px images from freezing the app
+            val maxWidth = 800
+            val width = originalBitmap.width
+            val height = originalBitmap.height
+
+            var newWidth = width
+            var newHeight = height
+
+            if (width > maxWidth) {
+                val ratio = width.toFloat() / height.toFloat()
+                newWidth = maxWidth
+                newHeight = (newWidth / ratio).toInt()
+            }
+
+            // 3. CREATE SCALED BITMAP
+            val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true)
+
+            // 4. COMPRESS (Quality 60%)
+            val outputStream = ByteArrayOutputStream()
+            // Using JPEG format is much smaller than PNG for photos
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream)
+
+            val bytes = outputStream.toByteArray()
+
+            // 5. Convert to Base64 string
+            return Base64.encodeToString(bytes, Base64.DEFAULT)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return ""
         }
-
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
-        val bytes = outputStream.toByteArray()
-
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
     private fun uploadPin(imageBase64: String, title: String, desc: String, link: String, userId: Int) {

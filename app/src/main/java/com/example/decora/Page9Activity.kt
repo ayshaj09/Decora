@@ -34,14 +34,12 @@ class Page9Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page9)
 
-        // Fix System Bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // 1. Get Data
         pinIdToSave = intent.getIntExtra("pin_id_to_save", -1)
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
@@ -52,21 +50,16 @@ class Page9Activity : AppCompatActivity() {
             return
         }
 
-        val back=findViewById<ImageView>(R.id.back)
-        back.setOnClickListener {
-            finish()
-        }
-        // 2. Setup UI
         findViewById<ImageView>(R.id.back).setOnClickListener { finish() }
         rvBoards = findViewById(R.id.rvBoardsList)
         rvBoards.layoutManager = LinearLayoutManager(this)
 
-        // 3. Load Boards
         loadBoards()
     }
 
     private fun loadBoards() {
-        val urlString = Config.BASE_URL + "get_board.php"
+        val urlString = Config.BASE_URL + "get_board.php" // Use standard get_boards
+
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(urlString)
@@ -75,6 +68,7 @@ class Page9Activity : AppCompatActivity() {
                 conn.doOutput = true
                 val jsonParam = JSONObject()
                 jsonParam.put("user_id", currentUserId)
+
                 val os = OutputStreamWriter(conn.outputStream)
                 os.write(jsonParam.toString())
                 os.flush()
@@ -84,35 +78,26 @@ class Page9Activity : AppCompatActivity() {
                 val response = reader.readText()
                 val json = JSONObject(response)
 
-
                 if (json.optBoolean("success")) {
                     val jsonArray = json.getJSONArray("boards")
                     val boardsList = ArrayList<Board>()
 
                     for (i in 0 until jsonArray.length()) {
                         val obj = jsonArray.getJSONObject(i)
-
-                        // Parse Preview Images Array
-                        val previewList = ArrayList<String>()
-                        val imagesArray = obj.optJSONArray("preview_images")
-                        if (imagesArray != null) {
-                            for (j in 0 until imagesArray.length()) {
-                                previewList.add(imagesArray.getString(j))
-                            }
-                        }
-
-                        val count = obj.optInt("pin_count", 0)
-
+                        // We only need ID and Title for this list
                         boardsList.add(Board(
                             obj.getInt("id"),
                             obj.getString("title"),
-                            "$count pins",
-                            previewList // Pass the list of images
+                            "",
+                            emptyList()
                         ))
                     }
 
                     withContext(Dispatchers.Main) {
-                        rvBoards.adapter = BoardAdapter(this@Page9Activity, boardsList)
+                        rvBoards.adapter = SimpleBoardAdapter(boardsList)
+                        if (boardsList.isEmpty()) {
+                            Toast.makeText(this@Page9Activity, "No boards found. Create one first!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } catch (e: Exception) {
@@ -132,6 +117,7 @@ class Page9Activity : AppCompatActivity() {
                 val jsonParam = JSONObject()
                 jsonParam.put("board_id", boardId)
                 jsonParam.put("pin_id", pinIdToSave)
+
                 val os = OutputStreamWriter(conn.outputStream)
                 os.write(jsonParam.toString())
                 os.flush()
@@ -145,7 +131,7 @@ class Page9Activity : AppCompatActivity() {
                     val msg = json.optString("message")
                     Toast.makeText(this@Page9Activity, msg, Toast.LENGTH_SHORT).show()
                     if (json.optBoolean("success")) {
-                        finish() // Close page on success
+                        finish() // Close page after saving
                     }
                 }
             } catch (e: Exception) {
@@ -154,24 +140,19 @@ class Page9Activity : AppCompatActivity() {
         }
     }
 
-    // Inner Adapter Class for Board Selection List
+    // --- SIMPLE ADAPTER (Text Only) ---
     inner class SimpleBoardAdapter(private val boards: List<Board>) :
         RecyclerView.Adapter<SimpleBoardAdapter.ViewHolder>() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val title: TextView = itemView.findViewById(android.R.id.text1)
+            // Bind to the TextView in our new simple layout
+            val title: TextView = itemView.findViewById(R.id.boardName)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            // Using a simple built-in Android layout item for the list row
+            // Inflate item_board_simple.xml
             val view = LayoutInflater.from(parent.context)
-                .inflate(android.R.layout.simple_list_item_1, parent, false)
-
-            // Customize text color since the background is dark
-            val textView = view.findViewById<TextView>(android.R.id.text1)
-            textView.setTextColor(resources.getColor(R.color.white, null))
-            textView.textSize = 18f
-
+                .inflate(R.layout.item_board_simple, parent, false)
             return ViewHolder(view)
         }
 
