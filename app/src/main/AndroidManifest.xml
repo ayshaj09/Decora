@@ -45,6 +45,8 @@
             android:exported="false"
             tools:replace="android:exported" />
 
+        <activity android:name=".SharePinActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".ResultPageActivity"
