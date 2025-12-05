@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,19 +33,48 @@ class PinsPage : AppCompatActivity() {
     private lateinit var pinsRecycler: RecyclerView
     private val pinsList = ArrayList<Pin>()
     private lateinit var adapter: PinAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_pins_page)
+// 1️⃣ Initialize RecyclerView FIRST
+        pinsRecycler = findViewById(R.id.pinsRecycler)
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+        pinsRecycler.layoutManager = layoutManager
+        pinsRecycler.itemAnimator = null   // ❗ DO NOT SET ADAPTER YET
 
+// 2️⃣ OFFLINE CHECK
+        val db = DatabaseHelper(this)
+        val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val loggedInUsername = sharedPrefs.getString("username", "")
+
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+
+            val cachedPins = db.getPins().filter { it.username == loggedInUsername }
+
+            pinsList.clear()
+            pinsList.addAll(cachedPins)
+
+            adapter = PinAdapter(pinsList.toMutableList())
+            pinsRecycler.adapter = adapter
+
+            Toast.makeText(this, "Offline mode", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+// 3️⃣ ONLINE ADAPTER CREATION
+        adapter = PinAdapter(pinsList.toMutableList())
+        pinsRecycler.adapter = adapter
+
+        // 3️⃣ Load rest of UI components (pfp, buttons, etc.)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Load user PFPs
         val pfp2 = findViewById<CircleImageView>(R.id.prof)
         loadCurrentUserProfile(pfp2)
 
@@ -70,26 +100,12 @@ class PinsPage : AppCompatActivity() {
             finish()
         }
 
-        val board = findViewById<TextView>(R.id.boards)
-        board.setOnClickListener {
+        findViewById<TextView>(R.id.boards).setOnClickListener {
             startActivity(Intent(this, Page13Activity::class.java))
             finish()
         }
 
-        // ---------------------------
-        // SETUP RECYCLER VIEW
-        // ---------------------------
-        pinsRecycler = findViewById(R.id.pinsRecycler)
-
-        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
-        pinsRecycler.layoutManager = layoutManager
-
-        // CREATE ADAPTER ONE TIME
-        adapter = PinAdapter(pinsList.toMutableList())
-        pinsRecycler.adapter = adapter
-
-        // ITEM CLICK HANDLER
+        // 4️⃣ Item click listener
         adapter.setOnItemClickListener { pin ->
             val intent = Intent(this, Page8Activity::class.java)
             intent.putExtra("pinId", pin.id)
@@ -97,9 +113,28 @@ class PinsPage : AppCompatActivity() {
             startActivityForResult(intent, 100)
         }
 
-        // LOAD DATA
+        // 5️⃣ ONLINE MODE → FETCH FROM SERVER
         fetchPins()
     }
+
+
+        // LOAD DATA
+        // LOAD DATA
+        // --------------------------------------------
+// OFFLINE MODE CHECK
+// --------------------------------------------
+
+// --------------------------------------------
+// OFFLINE MODE CHECK
+// --------------------------------------------
+
+
+// --------------------------------------------
+
+// --------------------------------------------
+
+// ONLINE → fetch from server
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -155,6 +190,13 @@ class PinsPage : AppCompatActivity() {
                     withContext(Dispatchers.Main) {
                         adapter.updateData(pinsList)
                     }
+                    val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+                    val loggedInUsername = sharedPrefs.getString("username", "")
+
+                    val onlyMyPins = pinsList.filter { it.username == loggedInUsername }
+
+                    DatabaseHelper(this@PinsPage).savePins(onlyMyPins)
+
 
                 }
 

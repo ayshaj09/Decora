@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,6 +36,22 @@ class Page7Activity : AppCompatActivity() {
         setContentView(R.layout.activity_page7)
         homePinsRecycler = findViewById(R.id.homePinsRecycler)
         homePinsRecycler.layoutManager = GridLayoutManager(this, 2)
+        // --- OFFLINE MODE: Load cached pins first ---
+        val db = DatabaseHelper(this)
+
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            val cachedPins = db.getPins()
+
+            if (cachedPins.isNotEmpty()) {
+                homePinsList.clear()
+                homePinsList.addAll(cachedPins)
+                homePinsRecycler.adapter = PinAdapter(homePinsList)
+
+                Toast.makeText(this, "Loaded offline pins", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+// After offline check → now fetch from server
         fetchAllPins()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -191,7 +208,10 @@ class Page7Activity : AppCompatActivity() {
 
                     withContext(Dispatchers.Main) {
                         homePinsRecycler.adapter = PinAdapter(homePinsList)
+
                     }
+                    DatabaseHelper(this@Page7Activity).savePins(homePinsList)
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
