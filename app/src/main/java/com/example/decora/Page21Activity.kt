@@ -93,6 +93,7 @@ class Page21Activity : AppCompatActivity() {
 
                 finish()
                 return@setOnClickListener
+
             }
 
 // If online → upload normally

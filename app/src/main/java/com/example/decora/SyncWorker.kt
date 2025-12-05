@@ -10,7 +10,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class SyncWorker(context: Context, params: WorkerParameters) :
-    Worker(context, params) {
+    Worker(context, params)
+{
 
     override fun doWork(): Result {
         Log.d("SYNC_WORKER", "Worker started")

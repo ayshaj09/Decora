@@ -11,7 +11,8 @@ import org.json.JSONObject
 
 object OfflineQueueManager {
 
-    fun addToQueue(context: Context, actionType: String, actionData: String) {
+    fun addToQueue(context: Context, actionType: String, actionData: String)
+    {
         val db = DatabaseHelper(context).writableDatabase
 
         val values = ContentValues().apply {
