@@ -75,17 +75,17 @@ class Page15Activity : AppCompatActivity() {
         }
 
         // --- Profile Loading ---
-        // 1. Load Main Profile Picture (Big one)
         val pfp = findViewById<CircleImageView>(R.id.pfp)
-        loadCurrentUserProfile(pfp)
-
-        // 2. Load Footer Profile Picture (Small one)
         val pfp2 = findViewById<CircleImageView>(R.id.prof)
-        loadCurrentUserProfile(pfp2)
 
         // --- Board Loading ---
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
+
+        // Load data
+        loadCurrentUserProfile(pfp)
+        loadCurrentUserProfile(pfp2) // Load footer image
+        loadFollowStats() // <--- NEW: Load Followers/Following Counts
 
         rvBoards = findViewById(R.id.rvBoards)
         rvBoards.layoutManager = GridLayoutManager(this, 2)
@@ -94,7 +94,7 @@ class Page15Activity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadBoards()
-        // Reload profile in case user came back from "Edit Profile" page
+        loadFollowStats() // Refresh counts when returning to page
         val pfp = findViewById<CircleImageView>(R.id.pfp)
         loadCurrentUserProfile(pfp)
     }
@@ -126,8 +126,6 @@ class Page15Activity : AppCompatActivity() {
 
                     for (i in 0 until jsonArray.length()) {
                         val obj = jsonArray.getJSONObject(i)
-
-                        // Parse Preview Images Array
                         val previewList = ArrayList<String>()
                         val imagesArray = obj.optJSONArray("preview_images")
                         if (imagesArray != null) {
@@ -135,9 +133,7 @@ class Page15Activity : AppCompatActivity() {
                                 previewList.add(imagesArray.getString(j))
                             }
                         }
-
                         val count = obj.optInt("pin_count", 0)
-
                         boardsList.add(Board(
                             obj.getInt("id"),
                             obj.getString("title"),
@@ -156,13 +152,8 @@ class Page15Activity : AppCompatActivity() {
         }
     }
 
-    // ✅ UPDATED FUNCTION: Loads Name AND Image
     private fun loadCurrentUserProfile(targetImageView: ImageView) {
-        val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
-        val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
-
         if (currentUserId == -1) return
-
         val urlString = Config.BASE_URL + "get_user_profile.php"
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -188,36 +179,67 @@ class Page15Activity : AppCompatActivity() {
                 if (json.optBoolean("success")) {
                     val user = json.getJSONObject("user")
 
-                    // 1. Get the Name
                     val fullName = user.optString("full_name")
                     val pfpString = if (user.isNull("profile_picture")) "" else user.optString("profile_picture")
 
                     withContext(Dispatchers.Main) {
-                        // 2. Update the Name TextView
                         val nameTv = findViewById<TextView>(R.id.username)
-                        if (nameTv != null) {
-                            nameTv.text = fullName
-                        }
+                        if (nameTv != null) nameTv.text = fullName
 
-                        // 3. Update the "Handle" (the small text below name)
-                        // XML Structure: LinearLayout (id=name) -> [ImageView, TextView]
                         val handleContainer = findViewById<LinearLayout>(R.id.name)
                         if (handleContainer != null) {
-                            // The text view is at index 1
                             val handleTv = handleContainer.getChildAt(1) as TextView
                             handleTv.text = "@${fullName.replace(" ", "").lowercase()}"
                         }
 
-                        // 4. Update Image
                         if (pfpString.isNotEmpty()) {
                             try {
                                 val cleanBase64 = if (pfpString.contains(",")) pfpString.split(",")[1] else pfpString
                                 val bytes = Base64.decode(cleanBase64, Base64.DEFAULT)
                                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-
                                 if (bitmap != null) targetImageView.setImageBitmap(bitmap)
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+                            } catch (e: Exception) { e.printStackTrace() }
+                        }
+                    }
+                }
+            } catch (e: Exception) { e.printStackTrace() }
+        }
+    }
+
+    // ✅ NEW FUNCTION: Load Follower/Following Counts
+    private fun loadFollowStats() {
+        if (currentUserId == -1) return
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Reuse existing script: get_profile_stats.php
+                // For logged-in user, target_id and my_id are the same
+                val urlStr = "${Config.URL_GET_PROFILE_STATS}?target_id=$currentUserId&my_id=$currentUserId"
+                val url = URL(urlStr)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "GET"
+
+                if (conn.responseCode == 200) {
+                    val response = conn.inputStream.bufferedReader().readText()
+                    val json = JSONObject(response)
+
+                    if (json.optBoolean("success")) {
+                        val followers = json.optString("followers")
+                        val following = json.optString("following")
+
+                        withContext(Dispatchers.Main) {
+                            // Find the LinearLayout containing the stats (id = fllow)
+                            val statsContainer = findViewById<LinearLayout>(R.id.fllow)
+
+                            // Access children by index because they don't have unique IDs in XML
+                            // Child 0 = Followers TextView
+                            // Child 1 = Following TextView
+                            if (statsContainer != null && statsContainer.childCount >= 2) {
+                                val followersTv = statsContainer.getChildAt(0) as TextView
+                                val followingTv = statsContainer.getChildAt(1) as TextView
+
+                                followersTv.text = "$followers followers"
+                                followingTv.text = "$following following"
                             }
                         }
                     }
