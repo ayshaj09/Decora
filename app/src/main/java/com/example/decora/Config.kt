@@ -27,6 +27,6 @@ object Config {
 
     const val URL_SEARCH_PINS = "${BASE_URL}search_pins.php"
 
-
+    const val URL_GET_CONNECTIONS = "${BASE_URL}get_connections.php"
 
 }

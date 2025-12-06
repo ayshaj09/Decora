@@ -6,15 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2B241C"
-    tools:context=".Page15Activity">
+    tools:context=".OtherUserProfile">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:id="@+id/top"
-        >
+        android:id="@+id/top">
 
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:background="@drawable/back_arrow"
+            android:layout_marginHorizontal="25dp"
+            android:backgroundTint="@color/white"/>
 
         <ImageView
             android:layout_width="40dp"
@@ -23,7 +31,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="25dp"
             android:background="@drawable/options"/>
-
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -33,8 +40,7 @@
         android:layout_below="@id/top"
         android:src="@drawable/defaultpfp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,15 +61,12 @@
         android:id="@+id/name"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="5dp"
-        >
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/logo1"
-
-            />
+            android:src="@drawable/logo1"/>
 
         <TextView
             android:id="@+id/userHandle"
@@ -72,8 +75,6 @@
             android:layout_marginLeft="5dp"
             android:textColor="#737576"
             android:text="davd"/>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -83,15 +84,14 @@
         android:id="@+id/fllow"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="5dp"
-        >
+        android:layout_marginTop="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:textColor="@color/white"
-            android:text="10 followers"/>
+            android:text="0 followers"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,9 +99,7 @@
             android:textSize="15dp"
             android:textColor="@color/white"
             android:layout_marginLeft="15dp"
-            android:text="32 following"/>
-
-
+            android:text="0 following"/>
     </LinearLayout>
 
     <TextView
@@ -125,8 +123,7 @@
         android:gravity="center"
         android:id="@+id/saved"
         android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -157,178 +154,17 @@
             android:layout_marginLeft="30dp"
             android:id="@+id/created"
             android:textSize="15dp"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white"/>
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBoards"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/saved"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/saved"
-            android:id="@+id/pin1"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-
-                <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/img1"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/img2"/>
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="1dp"
-                        android:src="@drawable/img3"/>
-
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="kids room"
-                android:textColor="@color/white"
-                android:layout_marginTop="2dp"
-                android:textStyle="bold"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="24 pins"
-                    android:textSize="11dp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="2dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1w"
-                    android:layout_marginLeft="4dp"
-                    android:textSize="11dp"
-
-                    android:textColor="#62605E"
-                    android:layout_marginTop="2dp"/>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/saved"
-            android:layout_toRightOf="@id/pin1"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-
-                <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/img4"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/img5"/>
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="1dp"
-                        android:src="@drawable/im6"/>
-
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="bnw"
-                android:textColor="@color/white"
-                android:layout_marginTop="2dp"
-                android:textStyle="bold"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30 pins"
-                    android:textSize="11dp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="2dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2w"
-                    android:layout_marginLeft="4dp"
-                    android:textSize="11dp"
-
-                    android:textColor="#62605E"
-                    android:layout_marginTop="2dp"/>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </LinearLayout>
-
+        android:layout_above="@id/footer"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -349,55 +185,6 @@
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:clickable="true" />
-
-        <ImageView
-            android:id="@+id/search"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:src="@drawable/search"
-            app:tint="@color/white"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
-            android:clickable="true" />
-
-        <ImageView
-            android:id="@+id/post"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/plus"
-            app:tint="@color/white"
-            android:layout_marginBottom="3dp"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
-            android:clickable="true" />
-
-        <ImageView
-            android:id="@+id/dm"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="3dp"
-            android:src="@drawable/comment"
-            app:tint="@color/white"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
-            android:clickable="true" />
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:src="@drawable/defaultpfp"
-            android:layout_weight="1"
-            android:id="@+id/prof"
-            android:layout_marginTop="-3dp"
-            android:layout_gravity="center"
-            android:clickable="true"/>
-
-
     </LinearLayout>
-
 
 </RelativeLayout>

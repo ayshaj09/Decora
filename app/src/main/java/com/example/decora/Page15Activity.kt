@@ -74,6 +74,27 @@ class Page15Activity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // --- NEW: Followers/Following Click Listeners ---
+        val statsContainer = findViewById<LinearLayout>(R.id.fllow)
+
+        // We use loops or index because they don't have IDs in XML
+        if (statsContainer != null && statsContainer.childCount >= 2) {
+
+            // 1. Followers Click (First text)
+            statsContainer.getChildAt(0).setOnClickListener {
+                val intent = Intent(this, FollowListActivity::class.java)
+                intent.putExtra("TYPE", "followers")
+                startActivity(intent)
+            }
+
+            // 2. Following Click (Second text)
+            statsContainer.getChildAt(1).setOnClickListener {
+                val intent = Intent(this, FollowListActivity::class.java)
+                intent.putExtra("TYPE", "following")
+                startActivity(intent)
+            }
+        }
+
         // --- Profile Loading ---
         val pfp = findViewById<CircleImageView>(R.id.pfp)
         val pfp2 = findViewById<CircleImageView>(R.id.prof)
@@ -85,7 +106,7 @@ class Page15Activity : AppCompatActivity() {
         // Load data
         loadCurrentUserProfile(pfp)
         loadCurrentUserProfile(pfp2) // Load footer image
-        loadFollowStats() // <--- NEW: Load Followers/Following Counts
+        loadFollowStats() // Load stats numbers
 
         rvBoards = findViewById(R.id.rvBoards)
         rvBoards.layoutManager = GridLayoutManager(this, 2)
@@ -206,14 +227,12 @@ class Page15Activity : AppCompatActivity() {
         }
     }
 
-    // ✅ NEW FUNCTION: Load Follower/Following Counts
     private fun loadFollowStats() {
         if (currentUserId == -1) return
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Reuse existing script: get_profile_stats.php
-                // For logged-in user, target_id and my_id are the same
+                // Config.URL_GET_PROFILE_STATS = .../get_profile_stats.php
                 val urlStr = "${Config.URL_GET_PROFILE_STATS}?target_id=$currentUserId&my_id=$currentUserId"
                 val url = URL(urlStr)
                 val conn = url.openConnection() as HttpURLConnection
@@ -228,12 +247,8 @@ class Page15Activity : AppCompatActivity() {
                         val following = json.optString("following")
 
                         withContext(Dispatchers.Main) {
-                            // Find the LinearLayout containing the stats (id = fllow)
                             val statsContainer = findViewById<LinearLayout>(R.id.fllow)
 
-                            // Access children by index because they don't have unique IDs in XML
-                            // Child 0 = Followers TextView
-                            // Child 1 = Following TextView
                             if (statsContainer != null && statsContainer.childCount >= 2) {
                                 val followersTv = statsContainer.getChildAt(0) as TextView
                                 val followingTv = statsContainer.getChildAt(1) as TextView
