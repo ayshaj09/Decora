@@ -21,38 +21,18 @@
             android:id="@+id/textAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All"
+            android:text="All Pins"
             android:textSize="18sp"
             android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/line"
             android:layout_below="@id/textAll"
-            android:layout_width="25dp"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:src="@drawable/line2"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/LoungeDecor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lounge Decor"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@id/line" />
-
-        <TextView
-            android:id="@+id/Room"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Room"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@id/LoungeDecor" />
     </RelativeLayout>
 
 

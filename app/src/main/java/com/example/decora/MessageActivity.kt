@@ -2,6 +2,8 @@ package com.example.decora
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +27,7 @@ class MessageActivity : AppCompatActivity() {
 
     private lateinit var rvUsers: RecyclerView
     private var myUserId: Int = -1
+    private lateinit var dbHelper: DatabaseHelper // Local DB Helper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,9 @@ class MessageActivity : AppCompatActivity() {
             insets
         }
 
-        // 1. Get Logged In User ID
+        // Initialize Database Helper
+        dbHelper = DatabaseHelper(this)
+
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         val idString = sharedPrefs.getString("user_id", "-1")
         myUserId = idString?.toIntOrNull() ?: -1
@@ -51,16 +56,44 @@ class MessageActivity : AppCompatActivity() {
         rvUsers = findViewById(R.id.rvUsers)
         rvUsers.layoutManager = LinearLayoutManager(this)
 
-        // 2. Load Users
-        loadUsers()
+        // 1. Load Cached Users (Instant Offline Access)
+        loadCachedUsers()
+
+        // 2. Check Network and Sync
+        if (isNetworkAvailable()) {
+            loadUsersFromServer()
+        } else {
+            Toast.makeText(this, "Loading offline chats.", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun loadUsers() {
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+    }
+
+    private fun loadCachedUsers() {
+        try {
+            // Fetch users stored in SQLite
+            val localUsers = dbHelper.getChatUsers()
+            if (localUsers.isNotEmpty()) {
+                updateAdapter(localUsers)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun loadUsersFromServer() {
+        // Use the filename from your working code
         val urlString = Config.BASE_URL + "fetch_chat_users.php"
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // ... existing connection setup ...
                 val url = URL(urlString)
                 val conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
@@ -75,11 +108,12 @@ class MessageActivity : AppCompatActivity() {
                 os.flush()
                 os.close()
 
-                // Check for Server Errors (500, 404, etc)
-                val responseCode = conn.responseCode
-                if (responseCode != 200) {
+                if (conn.responseCode != 200) {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@MessageActivity, "Server Error: $responseCode", Toast.LENGTH_LONG).show()
+                        // Only show error if we have no cached data to show
+                        if (rvUsers.adapter == null) {
+                            Toast.makeText(this@MessageActivity, "Server Error: ${conn.responseCode}", Toast.LENGTH_LONG).show()
+                        }
                     }
                     return@launch
                 }
@@ -99,8 +133,6 @@ class MessageActivity : AppCompatActivity() {
 
                         val id = obj.getInt("id")
                         val name = obj.getString("full_name")
-
-                        // Handle nulls safely
                         val pic = if (obj.isNull("profile_picture")) null else obj.getString("profile_picture")
                         val msg = if (obj.isNull("last_message")) null else obj.getString("last_message")
                         val time = if (obj.isNull("last_time")) null else obj.getString("last_time")
@@ -108,31 +140,43 @@ class MessageActivity : AppCompatActivity() {
                         userList.add(UserChat(id, name, pic, msg, time))
                     }
 
+                    // 3. Save to Local DB (Update Cache)
+                    dbHelper.saveChatUsers(userList)
+
                     withContext(Dispatchers.Main) {
+                        updateAdapter(userList)
+
                         if (userList.isEmpty()) {
-                            Toast.makeText(this@MessageActivity, "No other users found", Toast.LENGTH_SHORT).show()
-                        }
-                        rvUsers.adapter = UsersAdapter(this@MessageActivity, userList) { selectedUser ->
-                            // This code runs when an item is clicked: Open Chat (Page 19)
-                            val intent = Intent(this@MessageActivity, Page19Activity::class.java)
-                            intent.putExtra("partner_id", selectedUser.id)
-                            intent.putExtra("partner_name", selectedUser.username)
-                            startActivity(intent)
+                            Toast.makeText(this@MessageActivity, "No chats found", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    // NEW: Show error message if success is false
                     val errorMsg = jsonResponse.optString("message", "Unknown error")
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@MessageActivity, "Failed: $errorMsg", Toast.LENGTH_LONG).show()
+                        if (rvUsers.adapter == null) {
+                            Toast.makeText(this@MessageActivity, "Failed: $errorMsg", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MessageActivity, "App Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    if (rvUsers.adapter == null) {
+                        Toast.makeText(this@MessageActivity, "Connection Error", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
+        }
+    }
+
+    private fun updateAdapter(userList: List<UserChat>) {
+        rvUsers.adapter = UsersAdapter(this@MessageActivity, userList) { selectedUser ->
+            // Open Chat (Page 19)
+            // Page 19 already handles offline message queuing!
+            val intent = Intent(this@MessageActivity, Page19Activity::class.java)
+            intent.putExtra("partner_id", selectedUser.id)
+            intent.putExtra("partner_name", selectedUser.username)
+            startActivity(intent)
         }
     }
 }

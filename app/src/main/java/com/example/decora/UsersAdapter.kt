@@ -71,7 +71,7 @@ class UsersAdapter(
             holder.tvLastMessage.text = displayText
 
             // Use timestamp from DB if available, otherwise "Recent"
-            holder.tvTime.text = if (user.timestamp != null) "Recent" else ""
+            holder.tvTime.text = if (user.timestamp != null) "Now" else ""
         } else {
             holder.tvLastMessage.text = "Tap to chat"
             holder.tvTime.text = ""

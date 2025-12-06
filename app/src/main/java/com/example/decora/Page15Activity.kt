@@ -8,6 +8,7 @@ import android.util.Base64
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -38,7 +39,7 @@ class Page15Activity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        setupLogout()
         // --- Navigation Logic ---
         val srch = findViewById<ImageView>(R.id.search)
         srch.setOnClickListener {
@@ -111,7 +112,39 @@ class Page15Activity : AppCompatActivity() {
         rvBoards = findViewById(R.id.rvBoards)
         rvBoards.layoutManager = GridLayoutManager(this, 2)
     }
+    private fun setupLogout() {
+        val logoutBtn = findViewById<ImageView>(R.id.logout) // The options icon
 
+        logoutBtn.setOnClickListener {
+            // Show Confirmation Popup
+            AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Logout") { _, _ ->
+                    performLogout()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
+    }
+
+    private fun performLogout() {
+        // 1. Clear SharedPreferences (Remove user data)
+        val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.clear() // Deletes user_id, isLoggedIn, etc.
+        editor.apply()
+
+        // 2. Stop Notification Service (Optional but good practice)
+        stopService(Intent(this, NotificationService::class.java))
+
+        // 3. Navigate to Login Page (Page 2)
+        val intent = Intent(this, Page2Activity::class.java)
+        // Clear back stack so user can't press "Back" to return to profile
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
     override fun onResume() {
         super.onResume()
         loadBoards()

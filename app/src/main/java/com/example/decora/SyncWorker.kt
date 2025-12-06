@@ -36,6 +36,7 @@ class SyncWorker(context: Context, params: WorkerParameters) :
                         allSuccessful = false
                     }
                 }
+                "send_message" -> sendMessage(action)
             }
         }
 
@@ -47,7 +48,29 @@ class SyncWorker(context: Context, params: WorkerParameters) :
             Result.retry()
         }
     }
+    private fun sendMessage(action: OfflineQueueManager.QueuedAction): Boolean {
+        return try {
+            val data = JSONObject(action.actionData)
+            val url = URL(Config.BASE_URL + "send_message.php")
+            val conn = url.openConnection() as HttpURLConnection
 
+            conn.requestMethod = "POST"
+            conn.doOutput = true
+            conn.setRequestProperty("Content-Type", "application/json")
+
+            val writer = OutputStreamWriter(conn.outputStream)
+            writer.write(data.toString())
+            writer.flush()
+            writer.close()
+
+            val response = conn.inputStream.bufferedReader().readText()
+            val obj = JSONObject(response)
+            obj.optBoolean("success", false)
+        } catch (e: Exception) {
+            Log.e("SYNC_WORKER", "Error sending msg: ${e.message}")
+            false
+        }
+    }
     private fun uploadPin(action: OfflineQueueManager.QueuedAction): Boolean {
         return try {
             val data = JSONObject(action.actionData)
