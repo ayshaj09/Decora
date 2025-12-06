@@ -67,18 +67,41 @@ class Page14Activity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.back).setOnClickListener { finish() }
         val pfpNav = findViewById<CircleImageView>(R.id.prof)
-        loadCurrentUserProfile(pfpNav)
+
+        // Profile pic might not load offline unless cached by library, skip for now
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            loadCurrentUserProfile(pfpNav)
+        }
     }
 
     override fun onResume() {
         super.onResume()
         if (boardId != -1) {
-            fetchBoardDetails()
-            fetchBoardPins()
+
+            // --- OFFLINE CHECK ---
+            if (!NetworkUtils.isNetworkAvailable(this)) {
+                // OFFLINE: Load from local DB
+                val db = DatabaseHelper(this)
+                val cachedPins = db.getBoardPins(boardId)
+
+                if (cachedPins.isNotEmpty()) {
+                    rvBoardPins.adapter = PinAdapter(cachedPins) { pin ->
+                        Toast.makeText(this, "Offline mode: Cannot delete pins", Toast.LENGTH_SHORT).show()
+                    }
+                    tvCount.text = "${cachedPins.size} pins"
+                    Toast.makeText(this, "Loaded offline pins", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "No offline pins found", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // ONLINE: Fetch from server
+                fetchBoardDetails()
+                fetchBoardPins()
+            }
         }
     }
 
-    // --- DELETE LOGIC ---
+
 
     private fun showDeleteDialog(pin: Pin) {
         AlertDialog.Builder(this)
@@ -116,7 +139,6 @@ class Page14Activity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (json.optBoolean("success")) {
                         Toast.makeText(this@Page14Activity, "Pin Removed", Toast.LENGTH_SHORT).show()
-                        // Refresh to update UI
                         fetchBoardDetails()
                         fetchBoardPins()
                     } else {
@@ -195,10 +217,14 @@ class Page14Activity : AppCompatActivity() {
                         )
                     }
                     withContext(Dispatchers.Main) {
-                        // Pass the delete logic here!
                         rvBoardPins.adapter = PinAdapter(pinsList) { pin ->
                             showDeleteDialog(pin)
                         }
+
+                        // --- SAVE TO OFFLINE DB ---
+                        // This saves the pins so they are available next time we are offline
+                        val db = DatabaseHelper(this@Page14Activity)
+                        db.saveBoardPins(boardId, pinsList)
                     }
                 }
             } catch (e: Exception) { e.printStackTrace() }

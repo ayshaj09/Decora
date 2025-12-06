@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -58,11 +59,11 @@ class Page13Activity : AppCompatActivity() {
             val intent = Intent(this, BoardCreate::class.java)
             startActivity(intent)
         }
-        // -----------------------------
-    pfpTop.setOnClickListener {
-        startActivity(Intent(this, Page15Activity::class.java))
-        finish()
-    }
+
+        pfpTop.setOnClickListener {
+            startActivity(Intent(this, Page15Activity::class.java))
+            finish()
+        }
 
         findViewById<ImageView>(R.id.home).setOnClickListener {
             startActivity(Intent(this, Page7Activity::class.java))
@@ -77,20 +78,28 @@ class Page13Activity : AppCompatActivity() {
             finish()
         }
 
-        val pins=findViewById<TextView>(R.id.pins)
+        val pins = findViewById<TextView>(R.id.pins)
         pins.setOnClickListener {
             startActivity(Intent(this, PinsPage::class.java))
             finish()
         }
-
     }
 
-    // --- NEW: Refresh list when returning from Create Page ---
     override fun onResume() {
         super.onResume()
-        loadBoards()
+
+        // --- OFFLINE CHECK ---
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            val db = DatabaseHelper(this)
+            val cachedBoards = db.getBoards()
+            if (cachedBoards.isNotEmpty()) {
+                rvBoards.adapter = BoardAdapter(this@Page13Activity, cachedBoards)
+                Toast.makeText(this, "Loaded offline boards", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            loadBoards()
+        }
     }
-    // --------------------------------------------------------
 
     private fun loadBoards() {
         val urlString = Config.BASE_URL + "get_board.php"
@@ -113,15 +122,12 @@ class Page13Activity : AppCompatActivity() {
                 val response = reader.readText()
                 val json = JSONObject(response)
 
-
                 if (json.optBoolean("success")) {
                     val jsonArray = json.getJSONArray("boards")
                     val boardsList = ArrayList<Board>()
 
                     for (i in 0 until jsonArray.length()) {
                         val obj = jsonArray.getJSONObject(i)
-
-                        // Parse Preview Images Array
                         val previewList = ArrayList<String>()
                         val imagesArray = obj.optJSONArray("preview_images")
                         if (imagesArray != null) {
@@ -129,19 +135,19 @@ class Page13Activity : AppCompatActivity() {
                                 previewList.add(imagesArray.getString(j))
                             }
                         }
-
                         val count = obj.optInt("pin_count", 0)
-
                         boardsList.add(Board(
                             obj.getInt("id"),
                             obj.getString("title"),
                             "$count pins",
-                            previewList // Pass the list of images
+                            previewList
                         ))
                     }
 
                     withContext(Dispatchers.Main) {
                         rvBoards.adapter = BoardAdapter(this@Page13Activity, boardsList)
+                        // SAVE TO OFFLINE DB
+                        DatabaseHelper(this@Page13Activity).saveBoards(boardsList)
                     }
                 }
             } catch (e: Exception) {
