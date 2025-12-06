@@ -1,12 +1,17 @@
 package com.example.decora
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,20 +34,42 @@ class Page11Activity : AppCompatActivity() {
     // Adapter to connect the list to the RecyclerView
     private lateinit var adapter: PinSearchAdapter
 
+    // Search Input Field
+    private lateinit var searchInput: EditText
+
+    // 1. Create the Launcher for Voice Search Result
+    private val speechLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val data = result.data
+            // Get the list of spoken text results
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+
+            // The first result is usually the most accurate
+            val spokenText = results?.get(0) ?: ""
+
+            if (spokenText.isNotEmpty()) {
+                // Set text to search bar (this will trigger the TextWatcher filter automatically!)
+                searchInput.setText(spokenText)
+
+                // Move cursor to the end of the text
+                searchInput.setSelection(spokenText.length)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_page11)
 
-        // 1. Handle Window Insets (Your existing code)
+        // 2. Handle Window Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // 2. Setup RecyclerView
-        // Make sure your XML has <androidx.recyclerview.widget.RecyclerView android:id="@+id/pinsRecyclerView" ... />
+        // 3. Setup RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.pinsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -50,11 +77,14 @@ class Page11Activity : AppCompatActivity() {
         adapter = PinSearchAdapter(ArrayList())
         recyclerView.adapter = adapter
 
-        // 3. Fetch Real Data from Database
+        // 4. Fetch Real Data from Database
         fetchPinTitles()
 
-        // 4. Setup Search Listener (Filter as you type)
-        val searchInput = findViewById<EditText>(R.id.searchInput)
+        // 5. Setup Search Listener & Mic
+        searchInput = findViewById(R.id.searchInput)
+        val micIcon = findViewById<ImageView>(R.id.micIcon)
+
+        // Text Watcher (Filters as you type)
         searchInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -65,7 +95,12 @@ class Page11Activity : AppCompatActivity() {
             }
         })
 
-        // 5. Navigation Logic
+        // Mic Click Listener (Launches Voice Search)
+        micIcon.setOnClickListener {
+            startVoiceRecognition()
+        }
+
+        // 6. Navigation Logic
         val userSearch = findViewById<TextView>(R.id.userSearch)
         userSearch.setOnClickListener {
             val intent = Intent(this, userSearchActivity::class.java)
@@ -76,6 +111,22 @@ class Page11Activity : AppCompatActivity() {
         val cancelBtn = findViewById<TextView>(R.id.cancel)
         cancelBtn.setOnClickListener {
             finish() // Close activity
+        }
+    }
+
+    private fun startVoiceRecognition() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+
+        // Use free form language model (better for general search terms)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+
+        // Prompt text shown to user
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to search pins...")
+
+        try {
+            speechLauncher.launch(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Voice search not supported on this device", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -17,6 +17,24 @@
         android:background="@drawable/circle"
         android:layout_alignParentStart="true">
 
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/search"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/micIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="2dp"
+            android:layout_toStartOf="@id/searchIcon"
+            android:src="@drawable/mic"
+            app:tint="@color/white" />
+
         <EditText
             android:id="@+id/searchInput"
             android:layout_width="match_parent"
@@ -27,17 +45,9 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginStart="15dp"
-            android:layout_toStartOf="@+id/searchIcon"
-            android:paddingEnd="50dp" />
+            android:layout_toStartOf="@+id/micIcon"
+            android:paddingEnd="10dp" />
 
-        <ImageView
-            android:id="@+id/searchIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/search"
-            app:tint="@color/white" />
     </RelativeLayout>
 
     <TextView
