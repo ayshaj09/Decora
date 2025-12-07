@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 
-class BoardAdapter(private val context: Context, private val boards: List<Board>) :
+class BoardAdapter(private val context: Context, private val boards: List<Board>,private val onLongClick: ((Board) -> Unit)? = null) :
     RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
 
     private val requestOptions = RequestOptions()
@@ -109,6 +109,10 @@ class BoardAdapter(private val context: Context, private val boards: List<Board>
             intent.putExtra("board_id", board.id)
             intent.putExtra("board_name", board.title)
             context.startActivity(intent)
+        }
+        holder.container.setOnLongClickListener {
+            onLongClick?.invoke(board)
+            true // Consumes the click
         }
     }
 

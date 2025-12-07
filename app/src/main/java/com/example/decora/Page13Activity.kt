@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog // Import AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -54,7 +55,6 @@ class Page13Activity : AppCompatActivity() {
         rvBoards.layoutManager = GridLayoutManager(this, 2)
 
         val btnAdd = findViewById<ImageView>(R.id.add)
-
         btnAdd.setOnClickListener {
             val intent = Intent(this, BoardCreate::class.java)
             startActivity(intent)
@@ -93,7 +93,10 @@ class Page13Activity : AppCompatActivity() {
             val db = DatabaseHelper(this)
             val cachedBoards = db.getBoards()
             if (cachedBoards.isNotEmpty()) {
-                rvBoards.adapter = BoardAdapter(this@Page13Activity, cachedBoards)
+                // Pass null for delete action in offline mode (or handle queuing if desired)
+                rvBoards.adapter = BoardAdapter(this@Page13Activity, cachedBoards) {
+                    Toast.makeText(this, "Cannot delete offline", Toast.LENGTH_SHORT).show()
+                }
                 Toast.makeText(this, "Loaded offline boards", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -101,8 +104,59 @@ class Page13Activity : AppCompatActivity() {
         }
     }
 
+    // --- NEW: Delete Logic ---
+    private fun showDeleteDialog(board: Board) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Board")
+            .setMessage("Are you sure you want to delete '${board.title}'? This action cannot be undone.")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteBoard(board.id)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteBoard(boardId: Int) {
+        val urlString = Config.BASE_URL + "delete_board.php"
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(urlString)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "POST"
+                conn.doOutput = true
+
+                val jsonParam = JSONObject()
+                jsonParam.put("board_id", boardId)
+                jsonParam.put("user_id", currentUserId)
+
+                val os = OutputStreamWriter(conn.outputStream)
+                os.write(jsonParam.toString())
+                os.flush()
+                os.close()
+
+                val reader = BufferedReader(InputStreamReader(conn.inputStream))
+                val response = reader.readText()
+                val json = JSONObject(response)
+
+                withContext(Dispatchers.Main) {
+                    if (json.optBoolean("success")) {
+                        Toast.makeText(this@Page13Activity, "Board Deleted", Toast.LENGTH_SHORT).show()
+                        loadBoards() // Refresh list
+                    } else {
+                        Toast.makeText(this@Page13Activity, "Failed: ${json.optString("message")}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@Page13Activity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    // -------------------------
+
     private fun loadBoards() {
-        val urlString = Config.BASE_URL + "get_board.php"
+        val urlString = Config.BASE_URL + "get_board.php" // Ensure this is plural (s)
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(urlString)
@@ -145,7 +199,10 @@ class Page13Activity : AppCompatActivity() {
                     }
 
                     withContext(Dispatchers.Main) {
-                        rvBoards.adapter = BoardAdapter(this@Page13Activity, boardsList)
+                        // Pass the delete callback here
+                        rvBoards.adapter = BoardAdapter(this@Page13Activity, boardsList) { board ->
+                            showDeleteDialog(board)
+                        }
                         // SAVE TO OFFLINE DB
                         DatabaseHelper(this@Page13Activity).saveBoards(boardsList)
                     }
