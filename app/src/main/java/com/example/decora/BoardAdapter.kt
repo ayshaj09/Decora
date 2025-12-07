@@ -46,7 +46,7 @@ class BoardAdapter(private val context: Context, private val boards: List<Board>
 
         val previews = board.previewImages
 
-        // Helper function to load image, handling both URL and Base64 data
+
         fun loadImage(dataString: String?, target: ImageView) {
             target.setImageResource(R.drawable.rectangle11) // Set placeholder initially
 
@@ -55,7 +55,7 @@ class BoardAdapter(private val context: Context, private val boards: List<Board>
                 return
             }
 
-            // Check if the string is likely Base64 (starts with a known header or is very long)
+
             val isBase64Data = dataString.startsWith("/9j/") || dataString.length > 500
 
             if (isBase64Data) {

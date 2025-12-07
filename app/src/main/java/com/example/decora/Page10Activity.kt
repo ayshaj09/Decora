@@ -1,4 +1,5 @@
 package com.example.decora
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,56 +25,141 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class Page10Activity : AppCompatActivity() {
+
+    private val sections = ArrayList<SectionModel>()
+    private lateinit var sectionsAdapter: SectionsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page10)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val home=findViewById<ImageView>(R.id.home)
+
+        // ---------------- FOOTER NAV ----------------
+        val home = findViewById<ImageView>(R.id.home)
         home.setOnClickListener {
-            val intent= Intent(this, Page7Activity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Page7Activity::class.java))
             finish()
         }
 
-        val msg=findViewById<ImageView>(R.id.dm)
+        val msg = findViewById<ImageView>(R.id.dm)
         msg.setOnClickListener {
-            val intent= Intent(this, Page18Activity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Page18Activity::class.java))
             finish()
         }
 
-        val pfp=findViewById<CircleImageView>(R.id.prof)
+        val pfp = findViewById<CircleImageView>(R.id.prof)
         loadCurrentUserProfile(pfp)
         pfp.setOnClickListener {
-            val intent= Intent(this, Page13Activity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Page13Activity::class.java))
             finish()
         }
 
-        val search=findViewById<RelativeLayout>(R.id.srch)
-
+        val search = findViewById<RelativeLayout>(R.id.srch)
         search.setOnClickListener {
-            val intent=Intent(this, Page11Activity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Page11Activity::class.java))
+        }
 
+        // ---------------- MAIN RECYCLER ----------------
+        val recyclerView = findViewById<RecyclerView>(R.id.pinsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        sectionsAdapter = SectionsAdapter(sections)
+        recyclerView.adapter = sectionsAdapter
+
+        // Fetch dynamic sections (titles + images)
+        fetchTitles()
+
+    }
+    private fun fetchTitles() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val url = URL(Config.URL_GET_PIN_TITLES)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "GET"
+
+                if (conn.responseCode == 200) {
+                    val response = conn.inputStream.bufferedReader().readText()
+                    val json = JSONObject(response)
+
+                    if (json.optBoolean("success")) {
+                        val titlesArray = json.getJSONArray("titles")
+
+                        sections.clear()
+                        for (i in 0 until titlesArray.length()) {
+                            val title = titlesArray.getString(i)
+                            sections.add(SectionModel(title))
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            sectionsAdapter.notifyDataSetChanged()
+                        }
+
+
+                        for (section in sections) {
+                            fetchImagesForTitle(section)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
+    private fun fetchImagesForTitle(section: SectionModel) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // ✅ SAME API & FORMAT AS ResultPageActivity
+                val urlStr = "${Config.URL_SEARCH_PINS}?query=${section.title}"
+                val url = URL(urlStr)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "GET"
+
+                if (conn.responseCode == 200) {
+                    val response = conn.inputStream.bufferedReader().readText()
+                    val json = JSONObject(response)
+
+                    if (json.optBoolean("success")) {
+                        val pinsArray = json.getJSONArray("pins")
+
+                        section.images.clear()
+
+                        for (i in 0 until pinsArray.length()) {
+                            val obj = pinsArray.getJSONObject(i)
+                            val image = obj.optString("image")
+
+                            if (image.isNotEmpty()) {
+                                section.images.add(image)
+                            }
+                        }
+
+                        // ✅ Refresh UI for this section
+                        withContext(Dispatchers.Main) {
+                            sectionsAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    // ---------------- PROFILE IMAGE ----------------
     private fun loadCurrentUserProfile(targetImageView: ImageView) {
         val sharedPrefs = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
         val currentUserId = sharedPrefs.getString("user_id", "-1")?.toIntOrNull() ?: -1
-
         if (currentUserId == -1) return
 
         val urlString = Config.BASE_URL + "get_user_profile.php"
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val url = URL(urlString)
-                val conn = url.openConnection() as HttpURLConnection
+                val conn = URL(urlString).openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
                 conn.doOutput = true
 
@@ -90,20 +178,15 @@ class Page10Activity : AppCompatActivity() {
                 val json = JSONObject(response)
                 if (json.optBoolean("success")) {
                     val user = json.getJSONObject("user")
-                    // Use "profile_picture" to match your DB column
                     val pfpString = if (user.isNull("profile_picture")) "" else user.optString("profile_picture")
 
                     if (pfpString.isNotEmpty()) {
-                        try {
-                            val cleanBase64 = if (pfpString.contains(",")) pfpString.split(",")[1] else pfpString
-                            val bytes = Base64.decode(cleanBase64, Base64.DEFAULT)
-                            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        val clean = if (pfpString.contains(",")) pfpString.split(",")[1] else pfpString
+                        val bytes = Base64.decode(clean, Base64.DEFAULT)
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
-                            withContext(Dispatchers.Main) {
-                                if (bitmap != null) targetImageView.setImageBitmap(bitmap)
-                            }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
+                        withContext(Dispatchers.Main) {
+                            targetImageView.setImageBitmap(bitmap)
                         }
                     }
                 }
@@ -112,5 +195,4 @@ class Page10Activity : AppCompatActivity() {
             }
         }
     }
-
 }

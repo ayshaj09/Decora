@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
     android:background="@color/darkbrown"
     tools:context=".Page10Activity">
-    <ScrollView
 
+    <ScrollView
         android:id="@+id/mainScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,24 +19,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- SEARCH BAR (KEPT) -->
             <RelativeLayout
                 android:id="@+id/srch"
-                android:clickable="true"
                 android:layout_width="380dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/circle">
+                android:background="@drawable/circle"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Search De'Cora"
                     android:textColorHint="@color/grey"
-                    android:layout_marginTop="7dp"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="7dp"
                     android:layout_toStartOf="@+id/searchIcon"
                     android:paddingEnd="50dp" />
 
@@ -44,8 +45,6 @@
                     android:id="@+id/searchIcon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-
-
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="12dp"
@@ -53,229 +52,18 @@
                     app:tint="@color/white" />
             </RelativeLayout>
 
-
-            <LinearLayout
+            <!-- DYNAMIC CONTENT -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pinsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                android:paddingTop="30dp">
+                android:padding="16dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Popular on De'Cora"
-                    android:textSize="10sp"
-                    android:textColor="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Dining Room Inspo"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white" />
-
-                <ImageView
-                    android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:src="@drawable/search"
-                app:tint="@color/white"/>
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-                android:id="@+id/first"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="15dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:layout_marginRight="2dp"
-                    android:src="@drawable/r1"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r2"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r3"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                android:paddingTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="For you"
-                    android:textSize="10sp"
-                    android:textColor="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Minimalist Interior"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/search"
-                        app:tint="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/second"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="15dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r4"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r5"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r1"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                android:paddingTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New trends"
-                    android:textSize="10sp"
-                    android:textColor="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Bubble Decor"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/search"
-                        app:tint="@color/white"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/third"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="15dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r3"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r4"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="130dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/r2"
-                    android:layout_margin="1dp"
-                    android:clickable="true" />
-            </LinearLayout>
-
+            <!-- THIS SHOWS THE ITEM LAYOUT STRUCTURE -->
         </LinearLayout>
     </ScrollView>
 
+    <!-- FOOTER (KEPT) -->
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -292,8 +80,6 @@
             android:layout_weight="1"
             android:src="@drawable/tab1"
             app:tint="@color/white"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
             android:clickable="true" />
 
         <ImageView
@@ -303,8 +89,6 @@
             android:layout_weight="1"
             android:src="@drawable/search"
             app:tint="@color/white"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
             android:clickable="true" />
 
         <ImageView
@@ -314,9 +98,6 @@
             android:layout_weight="1"
             android:src="@drawable/plus"
             app:tint="@color/white"
-            android:layout_marginBottom="3dp"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
             android:clickable="true" />
 
         <ImageView
@@ -324,11 +105,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:layout_marginBottom="3dp"
             android:src="@drawable/comment"
             app:tint="@color/white"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
             android:clickable="true" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -336,8 +114,6 @@
             android:layout_width="0dp"
             android:layout_height="28dp"
             android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_marginTop="-3dp"
             android:src="@drawable/defaultpfp"
             android:clickable="true" />
     </LinearLayout>
